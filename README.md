@@ -7,6 +7,17 @@ This project asks a simple question:
 
 ---
 
+## Results In 30 Seconds
+
+- **Scale:** 4,969 pediatric patients in the pathway cohort
+- **Completion:** ~21% reached diagnosis (~79% did not in the documented pathway)
+- **Largest leak points:** Primary Care -> Referral (~44%) and Specialist -> Diagnosis (~45%)
+- **Delay hotspots:** Long waits persist in early access and diagnostic closure stages
+- **Modeled upside:** Improving key stage conversion rates could recover ~196 additional diagnoses
+- **Action focus:** Tighten referral completion, diagnostic closure workflows, and stage-level monitoring
+
+---
+
 ## What This Project Shows
 
 - **4,969 patients** across a synthetic EHR-style cohort
@@ -31,22 +42,6 @@ The work combines:
 
 ---
 
-## Visual Snapshot
-
-![Pathway Funnel](python%20visuals/Pathway%20Funnel.png)
-*Patient volume by stage: where the pathway narrows most.*
-
-![Delay Severity Score Distribution](python%20visuals/Delay%20Severity%20Score%20Distribution.png)
-*Most patients cluster in low-to-moderate delay, with a meaningful long tail.*
-
-![Delay Severity Score Insurance Type](python%20visuals/Delay%20Severity%20Score%20Insurance%20Type.png)
-*Insurance differences exist, but are smaller than stage-level pathway leakage.*
-
-![Interval Distributions](python%20visuals/Interval%20Distributions.png)
-*Wait-time distributions by stage highlight where delays are concentrated.*
-
----
-
 ## Dashboard
 
 Run the interactive dashboard:
@@ -60,6 +55,22 @@ It includes:
 - **Quality & trends**
 - **Segments**
 - **Root-cause probes**
+
+---
+
+## Dashboard Screenshots
+
+![Dashboard Overview - Pathway Funnel](python%20visuals/Pathway%20Funnel.png)
+*Overview tab: patient volume through each pathway stage.*
+
+![Dashboard Overview - Delay Distribution](python%20visuals/Delay%20Severity%20Score%20Distribution.png)
+*Overview tab: delay severity spread and long-tail risk.*
+
+![Dashboard Segment View - Insurance](python%20visuals/Delay%20Severity%20Score%20Insurance%20Type.png)
+*Segments view: payer-level comparison of delay severity.*
+
+![Dashboard Stage Waits](python%20visuals/Interval%20Distributions.png)
+*Operational view: stage-level wait-time distributions.*
 
 ---
 
