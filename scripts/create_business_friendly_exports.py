@@ -9,6 +9,7 @@ Outputs are written to: outputs/business_ready/
 from __future__ import annotations
 
 import _bootstrap_path  # noqa: F401
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -129,6 +130,70 @@ def main() -> None:
             "metric_value": "value",
             "detail": "description",
         },
+    )
+
+    # Website metrics payload (simple JSON for GitHub Pages fetch)
+    funnel_path = ANALYTICS / "funnel metrics.csv"
+    dropoff_path = ANALYTICS / "stage dropoff.csv"
+    scenario_path = ANALYTICS / "recommendations_counterfactuals.csv"
+    trend_path = ANALYTICS / "trend_by_month.csv"
+
+    website_metrics: dict[str, object] = {
+        "project_name": "Pediatric CHD Pathway Analytics",
+        "subtitle": "Congenital heart diagnosis delay and care coordination analysis",
+    }
+
+    if funnel_path.exists():
+        f = pd.read_csv(funnel_path).iloc[0]
+        symptom = int(f["symptom"])
+        diagnosis = int(f["diagnosis"])
+        diagnosis_rate = (diagnosis / symptom) if symptom else 0.0
+        website_metrics.update(
+            {
+                "patients_total": symptom,
+                "patients_diagnosed": diagnosis,
+                "diagnosis_rate": round(diagnosis_rate, 4),
+            }
+        )
+
+    if dropoff_path.exists():
+        d = pd.read_csv(dropoff_path)
+        drop_map = {
+            row["stage"]: float(row["drop_off_rate"])
+            for _, row in d.iterrows()
+            if "stage" in d.columns and "drop_off_rate" in d.columns
+        }
+        website_metrics.update(
+            {
+                "dropoff_primary_care_to_referral": round(
+                    drop_map.get("PCP → Referral", 0.0), 4
+                ),
+                "dropoff_specialist_to_diagnosis": round(
+                    drop_map.get("Specialist → Diagnosis", 0.0), 4
+                ),
+            }
+        )
+
+    if scenario_path.exists():
+        s = pd.read_csv(scenario_path)
+        if "extra_diagnoses_vs_baseline" in s.columns and len(s) > 0:
+            best = float(s["extra_diagnoses_vs_baseline"].max())
+            website_metrics["best_case_additional_diagnoses"] = round(best, 1)
+
+    if trend_path.exists():
+        t = pd.read_csv(trend_path)
+        if len(t) >= 2:
+            website_metrics["trend_rows"] = int(len(t))
+
+    website_metrics["top_recommendations"] = [
+        "Improve referral completion after primary care visits",
+        "Reduce specialist-to-diagnosis closure delays",
+        "Track conversion and wait-time together by stage",
+    ]
+
+    (OUT_DIR / "website_metrics.json").write_text(
+        json.dumps(website_metrics, indent=2),
+        encoding="utf-8",
     )
 
     print(f"Wrote business-friendly outputs to {OUT_DIR}")
