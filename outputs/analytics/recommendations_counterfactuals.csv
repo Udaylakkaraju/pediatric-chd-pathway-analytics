@@ -1,0 +1,7 @@
+scenario,modeled_diagnoses,extra_diagnoses_vs_baseline,pct_symptom_cohort_reaching_diagnosis,pct_increase_in_diagnoses_vs_baseline
+baseline (current funnel),1042.0,0.0,20.97,0.0
+PCP→Referral +5 percentage points,1134.7,92.7,22.84,8.89
+PCP→Referral +10 percentage points,1227.4,185.4,24.7,17.79
+Referral→Specialist +10 percentage points,1176.4,134.4,23.68,12.89
+Specialist→Diagnosis +10 percentage points,1231.0,188.9,24.77,18.13
+PCP→Referral +5 and Specialist→Diagnosis +5 pp,1237.6,195.5,24.91,18.76

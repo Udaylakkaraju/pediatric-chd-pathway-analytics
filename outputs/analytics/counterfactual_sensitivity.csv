@@ -1,0 +1,8 @@
+scenario,modeled_diagnoses,delta_vs_baseline
+baseline,1042.04,0.0
+pcp_to_referral_minus_5pp,949.37,-92.68
+pcp_to_referral_plus_5pp,1134.72,92.68
+referral_to_specialist_minus_5pp,974.86,-67.19
+referral_to_specialist_plus_5pp,1109.23,67.19
+specialist_to_diagnosis_minus_5pp,947.59,-94.46
+specialist_to_diagnosis_plus_5pp,1136.5,94.46

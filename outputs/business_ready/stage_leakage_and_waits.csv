@@ -1,0 +1,7 @@
+stage_order,pathway_transition,patients_entering_step,patients_moving_to_next_step,conversion_rate,drop_off_rate,average_wait_days,median_wait_days,patients_used_for_wait_median
+1.0,Symptom → PCP,4969,4333.0,0.872,0.128,700.63,458.0,3999.0
+2.0,PCP → Referral,4333,2436.0,0.5622,0.4378,272.62,0.0,2027.0
+3.0,Referral → Specialist,2436,1889.0,0.7755,0.2245,223.82,0.0,737.0
+4.0,Specialist → Diagnosis,1889,1042.0,0.5516,0.4484,575.15,332.0,345.0
+,,,,,,,,
+,SUMMARY — top_2_highest_drop_off_stages,Specialist → Diagnosis; PCP → Referral,,,,,,

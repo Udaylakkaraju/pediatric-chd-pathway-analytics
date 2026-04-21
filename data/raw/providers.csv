@@ -1,0 +1,201 @@
+provider_id,provider_name,specialty,org_id
+PRV0001,Dr. BD,Cardiology,ORG008
+PRV0002,Dr. CG,Pediatrics,ORG018
+PRV0003,Dr. DJ,Family Medicine,ORG019
+PRV0004,Dr. EM,Family Medicine,ORG019
+PRV0005,Dr. FP,Pulmonology,ORG008
+PRV0006,Dr. GS,Family Medicine,ORG005
+PRV0007,Dr. HV,Cardiology,ORG003
+PRV0008,Dr. IY,Pediatrics,ORG028
+PRV0009,Dr. JB,Pediatrics,ORG021
+PRV0010,Dr. KE,Family Medicine,ORG022
+PRV0011,Dr. LH,Family Medicine,ORG003
+PRV0012,Dr. MK,Pulmonology,ORG020
+PRV0013,Dr. NN,Pediatrics,ORG017
+PRV0014,Dr. OQ,Emergency Medicine,ORG018
+PRV0015,Dr. PT,Pediatric Cardiology,ORG001
+PRV0016,Dr. QW,Pediatric Cardiology,ORG004
+PRV0017,Dr. RZ,Cardiology,ORG018
+PRV0018,Dr. SC,Pediatric Cardiology,ORG025
+PRV0019,Dr. TF,Pediatrics,ORG004
+PRV0020,Dr. UI,Family Medicine,ORG006
+PRV0021,Dr. VL,Emergency Medicine,ORG024
+PRV0022,Dr. WO,Pulmonology,ORG009
+PRV0023,Dr. XR,Pediatrics,ORG025
+PRV0024,Dr. YU,Pediatrics,ORG030
+PRV0025,Dr. ZX,Pediatrics,ORG021
+PRV0026,Dr. AA,Family Medicine,ORG021
+PRV0027,Dr. BD,Pediatrics,ORG007
+PRV0028,Dr. CG,Pediatrics,ORG025
+PRV0029,Dr. DJ,Emergency Medicine,ORG025
+PRV0030,Dr. EM,Pediatrics,ORG030
+PRV0031,Dr. FP,Family Medicine,ORG011
+PRV0032,Dr. GS,Emergency Medicine,ORG004
+PRV0033,Dr. HV,Pulmonology,ORG029
+PRV0034,Dr. IY,Family Medicine,ORG026
+PRV0035,Dr. JB,Pediatrics,ORG002
+PRV0036,Dr. KE,Pulmonology,ORG019
+PRV0037,Dr. LH,Cardiology,ORG003
+PRV0038,Dr. MK,Pediatrics,ORG027
+PRV0039,Dr. NN,Family Medicine,ORG025
+PRV0040,Dr. OQ,Pediatrics,ORG005
+PRV0041,Dr. PT,Pulmonology,ORG016
+PRV0042,Dr. QW,Pediatrics,ORG006
+PRV0043,Dr. RZ,Pediatric Cardiology,ORG028
+PRV0044,Dr. SC,Emergency Medicine,ORG007
+PRV0045,Dr. TF,Cardiology,ORG025
+PRV0046,Dr. UI,Pediatric Cardiology,ORG007
+PRV0047,Dr. VL,Pulmonology,ORG013
+PRV0048,Dr. WO,Family Medicine,ORG021
+PRV0049,Dr. XR,Family Medicine,ORG029
+PRV0050,Dr. YU,Pediatrics,ORG004
+PRV0051,Dr. ZX,Family Medicine,ORG003
+PRV0052,Dr. AA,Family Medicine,ORG019
+PRV0053,Dr. BD,Pediatrics,ORG019
+PRV0054,Dr. CG,Pediatric Cardiology,ORG003
+PRV0055,Dr. DJ,Pediatrics,ORG002
+PRV0056,Dr. EM,Pediatrics,ORG029
+PRV0057,Dr. FP,Pediatrics,ORG011
+PRV0058,Dr. GS,Pediatrics,ORG008
+PRV0059,Dr. HV,Pediatrics,ORG016
+PRV0060,Dr. IY,Cardiology,ORG005
+PRV0061,Dr. JB,Family Medicine,ORG029
+PRV0062,Dr. KE,Pediatrics,ORG016
+PRV0063,Dr. LH,Cardiology,ORG016
+PRV0064,Dr. MK,Pediatrics,ORG007
+PRV0065,Dr. NN,Family Medicine,ORG022
+PRV0066,Dr. OQ,Family Medicine,ORG014
+PRV0067,Dr. PT,Cardiology,ORG028
+PRV0068,Dr. QW,Pediatric Cardiology,ORG022
+PRV0069,Dr. RZ,Pediatrics,ORG021
+PRV0070,Dr. SC,Cardiology,ORG013
+PRV0071,Dr. TF,Emergency Medicine,ORG026
+PRV0072,Dr. UI,Pediatrics,ORG008
+PRV0073,Dr. VL,Family Medicine,ORG018
+PRV0074,Dr. WO,Pediatrics,ORG014
+PRV0075,Dr. XR,Pediatrics,ORG015
+PRV0076,Dr. YU,Pediatrics,ORG030
+PRV0077,Dr. ZX,Emergency Medicine,ORG026
+PRV0078,Dr. AA,Pediatrics,ORG018
+PRV0079,Dr. BD,Pulmonology,ORG021
+PRV0080,Dr. CG,Pediatrics,ORG027
+PRV0081,Dr. DJ,Emergency Medicine,ORG003
+PRV0082,Dr. EM,Pediatrics,ORG028
+PRV0083,Dr. FP,Family Medicine,ORG014
+PRV0084,Dr. GS,Emergency Medicine,ORG007
+PRV0085,Dr. HV,Pediatrics,ORG029
+PRV0086,Dr. IY,Pediatrics,ORG013
+PRV0087,Dr. JB,Pediatrics,ORG013
+PRV0088,Dr. KE,Cardiology,ORG026
+PRV0089,Dr. LH,Family Medicine,ORG010
+PRV0090,Dr. MK,Pulmonology,ORG024
+PRV0091,Dr. NN,Pediatric Cardiology,ORG018
+PRV0092,Dr. OQ,Pediatrics,ORG016
+PRV0093,Dr. PT,Pediatrics,ORG010
+PRV0094,Dr. QW,Family Medicine,ORG002
+PRV0095,Dr. RZ,Pediatrics,ORG018
+PRV0096,Dr. SC,Pediatrics,ORG011
+PRV0097,Dr. TF,Family Medicine,ORG019
+PRV0098,Dr. UI,Emergency Medicine,ORG030
+PRV0099,Dr. VL,Pediatrics,ORG006
+PRV0100,Dr. WO,Pediatrics,ORG017
+PRV0101,Dr. XR,Pediatrics,ORG006
+PRV0102,Dr. YU,Pediatric Cardiology,ORG003
+PRV0103,Dr. ZX,Family Medicine,ORG008
+PRV0104,Dr. AA,Family Medicine,ORG029
+PRV0105,Dr. BD,Family Medicine,ORG019
+PRV0106,Dr. CG,Pediatrics,ORG020
+PRV0107,Dr. DJ,Family Medicine,ORG022
+PRV0108,Dr. EM,Family Medicine,ORG017
+PRV0109,Dr. FP,Pediatrics,ORG009
+PRV0110,Dr. GS,Family Medicine,ORG023
+PRV0111,Dr. HV,Family Medicine,ORG009
+PRV0112,Dr. IY,Pediatric Cardiology,ORG022
+PRV0113,Dr. JB,Family Medicine,ORG015
+PRV0114,Dr. KE,Emergency Medicine,ORG025
+PRV0115,Dr. LH,Family Medicine,ORG001
+PRV0116,Dr. MK,Pulmonology,ORG019
+PRV0117,Dr. NN,Family Medicine,ORG003
+PRV0118,Dr. OQ,Pediatrics,ORG017
+PRV0119,Dr. PT,Family Medicine,ORG030
+PRV0120,Dr. QW,Emergency Medicine,ORG003
+PRV0121,Dr. RZ,Pediatrics,ORG012
+PRV0122,Dr. SC,Emergency Medicine,ORG015
+PRV0123,Dr. TF,Family Medicine,ORG023
+PRV0124,Dr. UI,Pediatric Cardiology,ORG026
+PRV0125,Dr. VL,Pediatric Cardiology,ORG001
+PRV0126,Dr. WO,Pediatrics,ORG018
+PRV0127,Dr. XR,Pediatrics,ORG022
+PRV0128,Dr. YU,Pediatrics,ORG029
+PRV0129,Dr. ZX,Emergency Medicine,ORG004
+PRV0130,Dr. AA,Family Medicine,ORG024
+PRV0131,Dr. BD,Pediatrics,ORG009
+PRV0132,Dr. CG,Pediatric Cardiology,ORG007
+PRV0133,Dr. DJ,Pediatric Cardiology,ORG007
+PRV0134,Dr. EM,Pediatrics,ORG028
+PRV0135,Dr. FP,Pediatrics,ORG016
+PRV0136,Dr. GS,Emergency Medicine,ORG030
+PRV0137,Dr. HV,Pediatric Cardiology,ORG003
+PRV0138,Dr. IY,Pediatrics,ORG027
+PRV0139,Dr. JB,Family Medicine,ORG001
+PRV0140,Dr. KE,Pediatric Cardiology,ORG005
+PRV0141,Dr. LH,Pediatrics,ORG009
+PRV0142,Dr. MK,Family Medicine,ORG015
+PRV0143,Dr. NN,Family Medicine,ORG014
+PRV0144,Dr. OQ,Pediatrics,ORG004
+PRV0145,Dr. PT,Pediatric Cardiology,ORG029
+PRV0146,Dr. QW,Family Medicine,ORG005
+PRV0147,Dr. RZ,Family Medicine,ORG027
+PRV0148,Dr. SC,Pediatrics,ORG018
+PRV0149,Dr. TF,Pediatrics,ORG005
+PRV0150,Dr. UI,Emergency Medicine,ORG012
+PRV0151,Dr. VL,Pulmonology,ORG026
+PRV0152,Dr. WO,Emergency Medicine,ORG002
+PRV0153,Dr. XR,Pediatric Cardiology,ORG007
+PRV0154,Dr. YU,Pediatrics,ORG022
+PRV0155,Dr. ZX,Family Medicine,ORG025
+PRV0156,Dr. AA,Family Medicine,ORG028
+PRV0157,Dr. BD,Cardiology,ORG020
+PRV0158,Dr. CG,Emergency Medicine,ORG030
+PRV0159,Dr. DJ,Pediatrics,ORG028
+PRV0160,Dr. EM,Emergency Medicine,ORG026
+PRV0161,Dr. FP,Family Medicine,ORG029
+PRV0162,Dr. GS,Cardiology,ORG006
+PRV0163,Dr. HV,Cardiology,ORG011
+PRV0164,Dr. IY,Cardiology,ORG014
+PRV0165,Dr. JB,Cardiology,ORG028
+PRV0166,Dr. KE,Pediatrics,ORG008
+PRV0167,Dr. LH,Pediatric Cardiology,ORG026
+PRV0168,Dr. MK,Emergency Medicine,ORG013
+PRV0169,Dr. NN,Family Medicine,ORG028
+PRV0170,Dr. OQ,Emergency Medicine,ORG007
+PRV0171,Dr. PT,Family Medicine,ORG015
+PRV0172,Dr. QW,Cardiology,ORG027
+PRV0173,Dr. RZ,Pediatrics,ORG008
+PRV0174,Dr. SC,Pediatrics,ORG022
+PRV0175,Dr. TF,Pediatrics,ORG011
+PRV0176,Dr. UI,Pulmonology,ORG003
+PRV0177,Dr. VL,Family Medicine,ORG009
+PRV0178,Dr. WO,Family Medicine,ORG017
+PRV0179,Dr. XR,Family Medicine,ORG027
+PRV0180,Dr. YU,Pediatrics,ORG001
+PRV0181,Dr. ZX,Pediatrics,ORG009
+PRV0182,Dr. AA,Pediatrics,ORG009
+PRV0183,Dr. BD,Family Medicine,ORG020
+PRV0184,Dr. CG,Cardiology,ORG024
+PRV0185,Dr. DJ,Pediatric Cardiology,ORG014
+PRV0186,Dr. EM,Pediatrics,ORG017
+PRV0187,Dr. FP,Family Medicine,ORG029
+PRV0188,Dr. GS,Pediatrics,ORG009
+PRV0189,Dr. HV,Pediatrics,ORG014
+PRV0190,Dr. IY,Cardiology,ORG030
+PRV0191,Dr. JB,Pediatric Cardiology,ORG022
+PRV0192,Dr. KE,Cardiology,ORG024
+PRV0193,Dr. LH,Family Medicine,ORG007
+PRV0194,Dr. MK,Pulmonology,ORG003
+PRV0195,Dr. NN,Family Medicine,ORG030
+PRV0196,Dr. OQ,Pediatric Cardiology,ORG011
+PRV0197,Dr. PT,Pediatric Cardiology,ORG004
+PRV0198,Dr. QW,Family Medicine,ORG010
+PRV0199,Dr. RZ,Family Medicine,ORG022
+PRV0200,Dr. SC,Pediatric Cardiology,ORG013

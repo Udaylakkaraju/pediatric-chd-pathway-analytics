@@ -1,0 +1,5 @@
+payer_type,patients,average_delay_score,diagnosis_rate
+uninsured,508,867.03,0.2165
+other,249,868.91,0.1727
+medicaid,1728,832.74,0.1933
+private,2484,894.25,0.2234
