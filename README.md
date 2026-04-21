@@ -63,6 +63,23 @@ It includes:
 
 ---
 
+## SQL Work (Beginner -> Intermediate)
+
+This repo includes a short SQL query pack in `sql/` to mirror core analytics logic in plain, interview-friendly steps:
+
+- `01_basic_profile.sql` -> table size + data coverage
+- `02_pathway_funnel.sql` -> stage counts + conversion rates
+- `03_stage_dropoff.sql` -> drop-off by transition
+- `04_stage_delay_contribution.sql` -> average waits by stage
+- `05_insurance_segmentation.sql` -> payer comparison
+- `06_provider_root_cause.sql` -> provider referral completion
+- `07_trend_by_month.sql` -> monthly trend
+- `08_cohort_scorecard.sql` -> one-row executive scorecard
+
+See `sql/README.md` for run order and usage notes.
+
+---
+
 ## Business-Friendly Outputs
 
 For non-technical stakeholders, plain-language files are available in:
@@ -109,6 +126,7 @@ chd_analytics/          Shared logic (paths, funnel math, severity mapping)
 data/raw/               Source tables
 data/staging/           Cleaned staging tables (stg_*.csv)
 data/marts/cleaned/     Analysis-ready patient mart
+sql/                    Beginner -> intermediate SQL query pack
 outputs/analytics/      Technical outputs
 outputs/business_ready/ Plain-language outputs
 tests/                  Validation tests
