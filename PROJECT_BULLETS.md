@@ -1,4 +1,4 @@
-# Project Bullets (Technical + Business-Friendly)
+# Pediatric CHD Pathway Analytics — Project Bullets (Technical + Business-Friendly)
 
 Use these bullets for resume, LinkedIn, portfolio, or interview prep.  
 They are written to be understandable to both technical and non-technical audiences.

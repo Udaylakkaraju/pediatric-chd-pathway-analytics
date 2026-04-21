@@ -505,7 +505,7 @@ def main() -> None:
     row = funnel.iloc[0]
     _sidebar_context(row)
 
-    st.title("Pediatric congenital heart disease — diagnostic pathway")
+    st.title("Pediatric CHD Pathway Analytics")
     st.caption(
         "**Congenital heart disease (CHD)** = structural heart problems present from birth. "
         "Care coordination view from first symptom in data through diagnosis (synthetic cohort)."

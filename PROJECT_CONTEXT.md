@@ -1,4 +1,6 @@
-# CHD Diagnostic Delay Analytics System
+# Pediatric CHD Pathway Analytics
+
+*Congenital Heart Diagnosis Delay and Care Coordination Analysis*
 
 ## Project purpose
 

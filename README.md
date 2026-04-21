@@ -1,5 +1,6 @@
-# CHD Diagnostic Delay Analytics System
+# Pediatric CHD Pathway Analytics
 
+**Congenital Heart Diagnosis Delay and Care Coordination Analysis**  
 **A data-driven analysis of pediatric care pathway optimization using synthetic EHR-style data.**
 
 ## Overview
