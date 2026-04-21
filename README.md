@@ -107,6 +107,7 @@ app/                    Streamlit app
 scripts/                Analysis scripts
 chd_analytics/          Shared logic (paths, funnel math, severity mapping)
 data/raw/               Source tables
+data/staging/           Cleaned staging tables (stg_*.csv)
 data/marts/cleaned/     Analysis-ready patient mart
 outputs/analytics/      Technical outputs
 outputs/business_ready/ Plain-language outputs

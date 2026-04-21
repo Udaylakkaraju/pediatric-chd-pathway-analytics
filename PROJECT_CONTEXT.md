@@ -19,6 +19,7 @@ Symptom -> PCP -> Referral -> Specialist -> Diagnosis -> Intervention
 ## Repository layout
 
 - `data/raw/` — eight source EHR-style CSVs  
+- `data/staging/` — cleaned staging tables (`stg_*.csv`) for SQL-style layer organization  
 - `data/marts/cleaned/` — patient-level analytical mart (`mart_delay_scored_cleaned.csv`, full cohort)  
 - `outputs/analytics/` — BI-style metrics, QC, trends, segments, scenarios  
 - `outputs/business_ready/` — plain-language copies of key outputs for non-technical users  
