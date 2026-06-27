@@ -1,123 +1,62 @@
-# Concrete recommendations (metrics-backed)
+# Operating Recommendations
 
-Scope: pediatric CHD pathway (symptom → PCP → referral → specialist → diagnosis). Figures below come from `funnel metrics.csv`, `stage delay contribution.csv`, and modeled scenarios in `recommendations_counterfactuals.csv` (see `compute_counterfactuals.py`).
+Scope: synthetic pediatric CHD diagnostic pathway.
 
-**Baseline snapshot (current funnel)**
+Current baseline:
 
 | Metric | Value |
-|--------|--------|
-| Patients in symptom cohort | 4,969 |
-| Reaching diagnosis | 1,042 |
-| Share of symptom cohort diagnosed | **21.0%** |
-| Largest single-stage drop-offs | **PCP → referral 43.8%**; **specialist → diagnosis 44.8%** |
-| Mean days among converters — PCP → referral | **273** |
-| Mean days among converters — specialist → diagnosis | **575** |
+|---|---:|
+| Patients in pathway | 4,969 |
+| Patients reaching diagnosis | 1,042 |
+| Diagnosis completion rate | 21.0% |
+| PCP -> Referral drop-off | 43.8% |
+| Specialist -> Diagnosis drop-off | 44.8% |
+| Referral -> Specialist median wait | 36 days |
 
-*Caveat:* “Extra diagnoses” scenarios assume the **same downstream conversions** except where noted, and isolate **one or two** stage-rate changes. They illustrate **order-of-magnitude** impact of coordination fixes, not a forecast of a specific program.
+## What The Analysis Says
 
----
+The pathway problem is not one vague delay. It is a handoff problem:
 
-## How this ties to real-world use (operations, not theory)
+1. Too many patients reach primary care but do not receive a documented referral.
+2. Too many patients complete a specialist visit but do not receive a documented diagnosis, rule-out, or follow-up plan.
+3. Referral-to-specialist access is the longest wait-time step.
 
-These metrics mirror what hospitals and networks already run as **access and coordination** work. Your funnel KPIs are the same *shape* as internal dashboards—even when vendors differ (Epic, Cerner, Meditech, etc.).
+## Operating Rules
 
-| Theme in this project | What it looks like on the ground | Who often owns it | How success is measured (same spirit as your metrics) |
-|------------------------|-----------------------------------|---------------------|--------------------------------------------------------|
-| **PCP → referral** | **Closed-loop referral management**: referral sent → received → scheduled → completed (or documented reason not completed). Primary-care **Patient-Centered Medical Home** (PCMH) and care-coordination programs often track **referral completion rate** and **days to specialist appointment**. | Primary-care leadership, ambulatory ops, care navigation | Referral conversion / completion %, **median days** referral → booked visit |
-| **Referral → specialist** | **Specialty access**: reducing **wait time** for first cardiology / pediatric cardiology visit; queue management; sometimes **eConsult** or triage so urgent CHD suspects are seen sooner. | Specialty clinic ops, access center, cardiology service line | % referred who get a specialist visit, **days wait** for first appointment |
-| **Specialist → diagnosis** | **Diagnostic closure**: echo or advanced imaging scheduled and resulted; **problem list** and billing diagnosis aligned when appropriate; reducing “lost to follow-up” after first specialist contact. Teaching hospitals often track **time to definitive diagnosis** for complex cohorts internally. | Pediatric cardiology, imaging services, clinic managers | % of specialist patients with **documented diagnosis** (or clear pending plan), **days** first specialist → diagnosis |
-| **Cross-cutting** | **CHD programs** (regional children’s hospitals, **ACC/AHA**-aligned quality work) routinely report **timeliness** and **care gaps**—your stages are a simplified version of that pathway view. | Quality, clinical program leadership | Funnel-style **conversion** + **interval** metrics by quarter |
+| Rule | Trigger | Required action | KPI | Target |
+|---|---|---|---|---|
+| Referral outcome within 7 days | Suspected CHD at PCP visit | Referral sent or reason documented | PCP -> Referral conversion | Drop-off below 35% |
+| Critical referral scheduled within 7 days | `referral_priority = critical` | First available specialist slot | Critical referral scheduling rate | >90% within 7 days |
+| Urgent referral scheduled within 14 days | `referral_priority = urgent` | Appointment scheduled | Urgent referral scheduling rate | >85% within 14 days |
+| Routine referral reviewed at 45 days | No specialist visit after 45 days | Document status/barrier | Referral -> Specialist median wait | <=36 days, then toward 30 |
+| No-show outreach within 48 hours | Appointment no-show | Contact caregiver and reschedule/close | No-show outreach rate | >90% within 48 hours |
+| Cancelled visit rescheduled within 7 days | Appointment cancelled | New date scheduled | Reschedule rate | >85% within 7 days |
+| Specialist visit closed within 14 days | Specialist visit with no diagnosis | Diagnosis, rule-out, test, or follow-up documented | Specialist -> Diagnosis conversion | >85% documented outcome |
+| High-friction case reviewed at 30 days | Open referral + payer/SVI/distance/capacity risk | Navigator review | Wait gap by access segment | Reduce segment gaps |
+| Low referral benchmark review | Clinic with 20+ cases and <50% PCP -> Referral conversion | Workflow audit | Clinic conversion rate | >50%, then improve |
+| Monthly pathway scorecard | Monthly ops review | Assign owner for worsening metric | Five scorecard KPIs | Move completion toward 25% |
 
-**Important:** This project uses **synthetic EHR-style data**. Real programs would validate definitions against **local coding** (referral orders vs messages), **same-network vs outside referrals**, and **clinical appropriateness**—your metrics stay **analytics hypotheses** until run on production extracts.
+## Highest-Impact Package
 
----
+| Improvement package | Modeled result |
+|---|---:|
+| PCP -> Referral +5pp and Specialist -> Diagnosis +5pp | +195.5 diagnoses |
+| New modeled completion rate | 24.9% |
 
-## 1) Close the referral gap after PCP (care coordination + primary network)
+## Recommended First 30 Days
 
-**Problem metric:** Only **56.2%** of patients with a PCP visit receive a recorded referral (`pcp_to_referral_conversion`). This stage loses **~1,897** patients (4,333 → 2,436).
+1. Build the referral exception list: PCP visits with no referral outcome after 7 days.
+2. Build the diagnostic closure list: specialist visits with no diagnosis/rule-out/follow-up after 14 days.
+3. Add appointment status queues for no-show, cancelled, scheduled pending, unable to contact, and not referred.
+4. Slice referral-to-specialist wait time by payer, SVI, distance, capacity tier, and priority.
+5. Publish the first monthly pathway scorecard.
 
-**Recommendation**
+## Plain-English Summary
 
-- Implement **closed-loop referral tracking** (status, timeliness, reason if not referred) and a **monthly referral completion rate** by clinic.
-- Target: raise PCP→referral conversion by **+5 to +10 percentage points** over 12–18 months through workflow and access (not a substitute for clinical judgment).
+The best first move is not a more complex model. It is a better handoff system.
 
-**Modeled impact (same cohort math)**
+Every suspected case should have a referral decision. Every referral should have a scheduled or documented outcome. Every missed appointment should trigger follow-up. Every specialist visit should end with a diagnosis, rule-out, or follow-up plan.
 
-| Target | Approx. extra diagnoses | Symptom cohort reaching diagnosis |
-|--------|-------------------------|-----------------------------------|
-| +5 pp PCP→referral | **+93** | **22.8%** (vs 21.0%) |
-| +10 pp PCP→referral | **+185** | **24.7%** |
+## Caveat
 
-**KPIs to monitor:** `pcp_to_referral_conversion`, median **PCP → referral days** (reduce delay among referred patients toward operational targets).
-
-**Time lever:** Mean PCP→referral interval is **273 days** among converters — even a **30-day** reduction in average delay for referred patients is a concrete operations target (e.g. **273 → 243 days**), reported as trend, not guaranteed “lives saved.”
-
----
-
-## 2) Close the loop after specialist visit (cardiology / diagnostic completion)
-
-**Problem metric:** Only **55.2%** of patients who saw a specialist reach a recorded diagnosis (`specialist_to_diagnosis_conversion`). This stage loses **847** patients (1,889 → 1,042).
-
-**Recommendation**
-
-- Standardize **specialist encounter documentation** and **diagnostic closure** (echo, formal CHD diagnosis code, or explicit “pending” with next step) within **X business days** of first specialist visit — set by program leadership.
-- Target: **+10 percentage points** on specialist→diagnosis conversion through scheduling, testing throughput, and care navigation.
-
-**Modeled impact**
-
-| Target | Approx. extra diagnoses | Symptom cohort reaching diagnosis |
-|--------|-------------------------|-----------------------------------|
-| +10 pp specialist→diagnosis | **+189** | **24.8%** |
-
-**KPIs:** `specialist_to_diagnosis_conversion`, median **specialist → diagnosis days** (baseline mean **575 days** — prioritize reducing long-tail delay, not only the mean).
-
----
-
-## 3) Reduce leakage between referral and specialist (access / scheduling)
-
-**Problem metric:** **22.5%** drop-off referral → specialist; mean interval among converters **224 days**.
-
-**Recommendation**
-
-- Prioritize **time-to-specialist** SLAs for referred CHD suspects (e.g. booked within **30–60 days** by severity tier — tiering can use your `chd_type` or acuity flags later).
-
-**Modeled impact**
-
-| Target | Approx. extra diagnoses |
-|--------|-------------------------|
-| +10 pp referral→specialist | **+134** |
-
-**KPIs:** `referral_to_specialist_conversion`, median **referral → specialist days**.
-
----
-
-## 4) Combined “coordination package” (small gains on the two worst leaks)
-
-**Recommendation:** Run **referral completion** and **diagnostic closure** improvements together at modest targets.
-
-**Modeled impact**
-
-| Target | Approx. extra diagnoses | Symptom cohort reaching diagnosis |
-|--------|-------------------------|-----------------------------------|
-| +5 pp PCP→referral **and** +5 pp specialist→diagnosis | **+196** | **24.9%** (~**+3.9 percentage points** on diagnosis rate vs baseline) |
-
----
-
-## 5) Insurance and equity (monitoring — not the primary lever in this dataset)
-
-**Observation:** Diagnosis rate by insurance ranges **~17%–22%**; differences are **small relative to pathway leakage** (see `insurance analysis.csv`).
-
-**Recommendation:** Use insurance as a **segmentation lens** for equity monitoring (e.g. track conversion and median delay by payer **in the same funnel**), not as the sole explanation for system delay.
-
----
-
-## Summary for executives
-
-| Priority | Lever | Example target | Modeled extra diagnoses (illustrative) |
-|----------|--------|----------------|----------------------------------------|
-| 1 | Referral after PCP | +10 pp conversion | **+185** |
-| 2 | Diagnosis after specialist | +10 pp conversion | **+189** |
-| 3 | Referral → specialist access | +10 pp conversion | **+134** |
-| 4 | Combined modest | +5 pp + +5 pp | **+196** |
-
-**Bottom line:** The system loses **~79%** of the symptom cohort before diagnosis; **concrete** programs should target **measurable conversion and time-to-next-step** at **PCP→referral**, **referral→specialist**, and **specialist→diagnosis**, with numbers above as **planning anchors** tied to your synthetic cohort.
+These recommendations are based on synthetic EHR-style data. They demonstrate how analytics can become an operational playbook, but they are not clinical evidence or causal forecasts.

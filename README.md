@@ -1,167 +1,157 @@
-# Pediatric CHD Pathway Analytics
+# Pediatric CHD Care Pathway Analytics
 
-**Congenital heart diagnosis delay and care coordination analysis**
+Healthcare operations analytics project using **Python, SQL, Excel-ready exports, and Power BI-ready tables** to study where children may be delayed or lost before a congenital heart disease (CHD) diagnosis.
 
-This project asks a simple question:  
-**Why are pediatric patients getting delayed or lost before diagnosis, and what should operations teams fix first?**
+All data is synthetic. The goal is to demonstrate an end-to-end analytics workflow that resembles real healthcare operations work without using protected patient records.
 
----
+## Business Question
 
-## Results In 30 Seconds
+Where do patients fall out of the diagnostic pathway, how long do they wait at each step, and which operational fixes could improve diagnosis completion?
 
-- **Scale:** 4,969 pediatric patients in the pathway cohort
-- **Completion:** ~21% reached diagnosis (~79% did not in the documented pathway)
-- **Largest leak points:** Primary Care -> Referral (~44%) and Specialist -> Diagnosis (~45%)
-- **Delay hotspots:** Long waits persist in early access and diagnostic closure stages
-- **Modeled upside:** Improving key stage conversion rates could recover ~196 additional diagnoses
-- **Action focus:** Tighten referral completion, diagnostic closure workflows, and stage-level monitoring
+The modeled pathway is:
 
----
-
-## What This Project Shows
-
-- **4,969 patients** across a synthetic EHR-style cohort
-- **~21%** reached diagnosis in the documented pathway
-- Largest losses happen at:
-  - **Primary Care -> Referral (~44% drop-off)**
-  - **Specialist -> Diagnosis (~45% drop-off)**
-- Scenario modeling suggests targeted workflow improvements could recover **~196 additional diagnoses** in this cohort view
-
----
-
-## Care Pathway
-
-Symptom -> Primary Care -> Referral -> Specialist -> Diagnosis
-
-The work combines:
-- pathway funnel metrics
-- delay/wait analysis
-- segmentation
-- root-cause probes
-- intervention scenario modeling
-
----
-
-## Dashboard
-
-Run the interactive dashboard:
-
-```bash
-python -m streamlit run app/streamlit_app.py
+```text
+Symptom documented -> Primary care -> Referral -> Specialist visit -> Diagnosis
 ```
 
-It includes:
-- **Overview** (funnel, drop-off, delay severity, scenario impact)
-- **Quality & trends**
-- **Segments**
-- **Root-cause probes**
+## Executive Snapshot
 
----
+| Metric | Current result |
+|---|---:|
+| Synthetic patient cohort | 4,969 |
+| Reached primary care | 4,333 |
+| Received referral | 2,436 |
+| Completed specialist visit | 1,889 |
+| Received diagnosis | 1,042 |
+| Overall diagnosis completion | 21.0% |
+| Largest drop-off | Specialist -> Diagnosis, 44.8% |
+| Second-largest drop-off | PCP -> Referral, 43.8% |
+| Longest median wait | Referral -> Specialist, 36 days |
 
-## Dashboard Screenshots
+## Why The Data Is Realistic Enough For A Portfolio Project
 
-![Dashboard Overview - Pathway Funnel](python%20visuals/Pathway%20Funnel.png)
-*Overview tab: patient volume through each pathway stage.*
+The dataset is synthetic, but it is shaped to mimic common healthcare data patterns:
 
-![Dashboard Overview - Delay Distribution](python%20visuals/Delay%20Severity%20Score%20Distribution.png)
-*Overview tab: delay severity spread and long-tail risk.*
+- Stage drop-off is sequential: patients cannot receive a diagnosis without completing the prior documented pathway stages.
+- Wait times are right-skewed, which is common in healthcare access data.
+- Complex CHD types reach care faster than mild/incidental defects.
+- Medicaid, uninsured, high-SVI, and longer-distance patients tend to wait longer for specialty access.
+- Later pathway fields contain expected nulls because many patients do not reach those stages.
+- Business-readable operational fields are included for BI work: referral priority, authorization status, appointment status, region, capacity tier, and distance to specialist.
 
-![Dashboard Segment View - Insurance](python%20visuals/Delay%20Severity%20Score%20Insurance%20Type.png)
-*Segments view: payer-level comparison of delay severity.*
+This means the analysis is useful for demonstrating workflow thinking, metric design, data quality checks, and BI storytelling. It should not be interpreted as real clinical evidence.
 
-![Dashboard Stage Waits](python%20visuals/Interval%20Distributions.png)
-*Operational view: stage-level wait-time distributions.*
+## Key Findings
 
----
+1. **Most patients do not reach diagnosis in the documented pathway.**  
+   Only 1,042 of 4,969 patients have a recorded diagnosis, a completion rate of about 21%.
 
-## SQL Work (Beginner -> Intermediate)
+2. **The main issue is pathway coordination, not one isolated segment.**  
+   The largest losses happen at PCP -> Referral and Specialist -> Diagnosis.
 
-This repo includes a short SQL query pack in `sql/` to mirror core analytics logic in plain, interview-friendly steps:
+3. **Specialty access is the longest wait-time bottleneck.**  
+   Referral -> Specialist has the longest median wait among completed stages.
 
-- `01_basic_profile.sql` -> table size + data coverage
-- `02_pathway_funnel.sql` -> stage counts + conversion rates
-- `03_stage_dropoff.sql` -> drop-off by transition
-- `04_stage_delay_contribution.sql` -> average waits by stage
-- `05_insurance_segmentation.sql` -> payer comparison
-- `06_provider_root_cause.sql` -> provider referral completion
-- `07_trend_by_month.sql` -> monthly trend
-- `08_cohort_scorecard.sql` -> one-row executive scorecard
+4. **Operational context matters.**  
+   Payer type, social vulnerability, distance, appointment status, and authorization status create realistic business questions for deeper analysis.
 
-See `sql/README.md` for run order and usage notes.
+5. **Scenario modeling helps size improvement opportunities.**  
+   Improving PCP -> Referral and Specialist -> Diagnosis conversion by 5 percentage points each models about 196 additional diagnoses in the synthetic cohort.
 
----
+## Tools Used
 
-## Business-Friendly Outputs
+| Layer | Tools |
+|---|---|
+| Data generation and cleaning | Python, pandas, numpy |
+| Analysis | SQL, SQLite, Python |
+| Data quality | pytest, custom QC report |
+| Business reporting | Excel-ready CSVs, Power BI-ready tables |
+| Dashboarding | Power BI-ready outputs, Streamlit optional |
+| Scenario modeling | Python sequential funnel model |
 
-For non-technical stakeholders, plain-language files are available in:
+## Project Structure
 
-- `outputs/business_ready/`
-
-Examples:
-- `patient_pathway_summary.csv`
-- `stage_loss_rates.csv`
-- `average_wait_by_stage.csv`
-- `scenario_impact_estimates.csv`
-
-Regenerate them with:
-
-```bash
-python scripts/create_business_friendly_exports.py
+```text
+data/raw/                         source-style synthetic EHR tables
+data/marts/cleaned/               patient-level analytical mart
+scripts/                          data generation, QA, analytics, exports
+sql/                              SQL analysis pack
+sql/results/                      regenerated SQL outputs
+outputs/analytics/                technical analytics outputs
+outputs/business_ready/           plain-language CSVs
+outputs/bi_ready/                 Power BI-ready fact/summary tables
+app/streamlit_app.py              optional technical dashboard
+tests/                            pytest validation suite
 ```
 
----
+## Main Outputs
 
-## Quick Run (Full Pipeline)
+- `outputs/bi_ready/patient_pathway_detail.csv`  
+  Patient-level table for Power BI with plain-language flags and operational context.
+
+- `outputs/analytics/coordination_failure_scorecard.csv`  
+  Stage-level scorecard combining conversion, drop-off, average wait, and median wait.
+
+- `outputs/business_ready/stage_leakage_and_waits.csv`  
+  Business-friendly version of the bottleneck table.
+
+- `outputs/analytics/recommendations_counterfactuals.csv`  
+  Scenario estimates for conversion improvements.
+
+- `outputs/analytics/QC_Report.csv`  
+  Data quality checks for nulls, duplicates, date sequence, interval outliers, and alignment.
+
+## Visual Story
+
+All charts are in `outputs/charts/portfolio/`.
+
+### 1. Pathway Funnel — only 21% reach diagnosis
+![Pathway Funnel](outputs/charts/portfolio/01_pathway_funnel.png)
+
+### 2. Stage Drop-off — referral and diagnostic closure are the two biggest losses
+![Stage Drop-off](outputs/charts/portfolio/02_stage_dropoff.png)
+
+### 3. Wait Time Bottleneck — specialty access takes the longest
+![Wait Time Bottleneck](outputs/charts/portfolio/03_wait_time_bottleneck.png)
+
+### 4. Operational Status Mix — what's actually happening to patients who don't progress
+![Operational Status Mix](outputs/charts/portfolio/04_operational_status_mix.png)
+
+### 5. Access Segments — payer type and social vulnerability drive specialty wait gaps
+![Access Segments](outputs/charts/portfolio/05_access_segments.png)
+
+### 6. Scenario Impact — which improvements move the needle most
+![Scenario Impact](outputs/charts/portfolio/06_scenario_impact.png)
+
+### 7. Operating Rules Roadmap — recommendations with triggers, SLAs, and KPIs
+![Operating Rules Roadmap](outputs/charts/portfolio/07_operating_rules_roadmap.png)
+
+For the full business action plan, see [`docs/KEY_RECOMMENDATIONS.md`](docs/KEY_RECOMMENDATIONS.md).
+
+## How To Run
 
 ```bash
 pip install -r requirements.txt
+
+python scripts/regenerate_realistic_data.py
+python scripts/build_core_analytics_outputs.py
+python scripts/compute_counterfactuals.py
+python scripts/sensitivity_counterfactuals.py
+python scripts/build_coordination_scorecard.py
 python scripts/data_quality_checks.py
 python scripts/trend_analysis.py
 python scripts/advanced_segmentation.py
 python scripts/root_cause_analysis.py
-python scripts/sensitivity_counterfactuals.py
-python scripts/build_coordination_scorecard.py
-python scripts/compute_counterfactuals.py
 python scripts/create_business_friendly_exports.py
-python -m pytest
+python scripts/run_sql_queries.py
+pytest
 ```
 
----
+## Docs
 
-## Repository Layout
+- [`docs/KEY_RECOMMENDATIONS.md`](docs/KEY_RECOMMENDATIONS.md) — operating rules with triggers, owners, SLAs, and KPIs
+- [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) — field definitions for the dataset
 
-```text
-app/                    Streamlit app
-scripts/                Analysis scripts
-chd_analytics/          Shared logic (paths, funnel math, severity mapping)
-data/raw/               Source tables
-data/staging/           Cleaned staging tables (stg_*.csv)
-data/marts/cleaned/     Analysis-ready patient mart
-sql/                    Beginner -> intermediate SQL query pack
-outputs/analytics/      Technical outputs
-outputs/business_ready/ Plain-language outputs
-tests/                  Validation tests
-```
+## Resume Positioning
 
----
-
-## Key Recommendations
-
-1. **Strengthen referral completion after primary care**  
-   (largest early-stage loss)
-2. **Improve diagnostic closure after specialist visits**  
-   (largest late-stage loss + long waits)
-3. **Track leakage + wait time together**  
-   (not delay-only or conversion-only)
-
----
-
-## Important Notes
-
-- Data is **synthetic** (portfolio/demo use).
-- Scenario impacts are **planning estimates**, not causal guarantees.
-- Provider-level metrics are for **operational triage**, not performance judgment.
-
----
-
-For detailed technical context: see `PROJECT_CONTEXT.md` and `PROJECT_BULLETS.md`.
+Built an end-to-end healthcare operations analytics project using Python, SQL, Excel-ready reporting, and Power BI-ready data outputs to analyze pediatric CHD diagnostic pathway leakage across 4,969 synthetic EHR-style patient records. Created a

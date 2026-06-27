@@ -1,5 +1,5 @@
 pathway_step,share_lost_before_next_step
-Symptom → PCP,0.128
-PCP → Referral,0.4378
-Referral → Specialist,0.2245
-Specialist → Diagnosis,0.4484
+Symptom -> PCP,0.128
+PCP -> Referral,0.4378
+Referral -> Specialist,0.2245
+Specialist -> Diagnosis,0.4484

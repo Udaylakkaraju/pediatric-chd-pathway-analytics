@@ -1,40 +1,33 @@
-# Pediatric CHD Pathway Analytics — Project Bullets (Technical + Business-Friendly)
+# Pediatric CHD Pathway Analytics - Project Bullets
 
-Use these bullets for resume, LinkedIn, portfolio, or interview prep.  
-They are written to be understandable to both technical and non-technical audiences.
+Use these for resume, LinkedIn, portfolio notes, and interview prep.
 
-## Full-story bullets (detailed)
+## One-Line Positioning
 
-- Framed and solved a healthcare operations problem in pediatric congenital heart disease (CHD): too many patients were delayed or lost before diagnosis; translated this into measurable pathway questions (where leakage happens, how long each stage takes, and which operational levers matter most).
+Built a healthcare operations funnel analytics project using Python, SQL, Excel-ready outputs, and Power BI-ready tables to track 4,969 synthetic pediatric CHD patients through a diagnostic pathway and identify where patients are lost or delayed.
 
-- Built an analysis-ready patient mart from 8 synthetic EHR-style source tables (4,969 patients) and modeled the care pathway from symptom onset to diagnosis; standardized stage timelines and interval features to support consistent funnel, delay, and segmentation analysis.
+## Resume-Ready Bullets
 
-- Implemented a production-style quality layer with 20+ automated data checks (null rates, duplicate keys, date-order violations, future/implausible dates, negative intervals, long-delay outliers, and mart-vs-funnel alignment), improving trust in downstream metrics before recommendation-making.
+- Built an end-to-end operations analytics project using Python, SQL, Excel-ready exports, and Power BI-ready tables to analyze 4,969 synthetic pediatric CHD patient records across symptom, primary care, referral, specialist visit, and diagnosis stages.
 
-- Quantified pathway performance with clear stage metrics: only ~21% of symptom-stage patients reached diagnosis (~79% non-completion in the documented pathway), with largest leakage at PCP->Referral (~44%) and Specialist->Diagnosis (~45%).
+- Created a patient-level analytical mart from synthetic EHR-style data, added realistic workflow fields such as referral priority, authorization status, appointment status, provider capacity tier, and distance to specialist, and validated sequential pathway logic with automated tests.
 
-- Diagnosed operational risk patterns behind drop-off: 49% of patients had no referral record; Specialist->Diagnosis remained a high-friction stage with ~575 mean days among converters; used provider rollups (200+ providers meeting minimum referral volume) for triage, not blame.
+- Identified the largest pathway bottlenecks: only 1,042 of 4,969 patients reached diagnosis (21.0%), with 43.8% drop-off from PCP to referral and 44.8% drop-off from specialist visit to diagnosis.
 
-- Built a coordination failure scorecard combining leakage and wait-time burden by stage (conversion, drop-off, average/median wait), enabling teams to prioritize the highest-impact bottlenecks instead of focusing on delay averages alone.
+- Built a coordination scorecard combining stage conversion, drop-off, average wait, and median wait; found referral-to-specialist access had the longest median wait at 36 days.
 
-- Performed multi-dimensional segmentation (payer, CHD severity tier, age band, cohort era, social vulnerability tertiles, plus payer x severity) and found system-flow issues outweighed payer-only differences, guiding recommendations toward coordination workflows rather than narrow subgroup fixes.
+- Modeled operational improvement scenarios with sequential funnel math; estimated that improving PCP-to-referral and specialist-to-diagnosis conversion by 5 percentage points each could add about 196 diagnoses in the synthetic cohort.
 
-- Modeled intervention scenarios using sequential conversion math with one-at-a-time +/-5 percentage-point sensitivity analysis; identified closed-loop referral completion and diagnostic closure as highest-ROI levers, with modeled upside of ~196 additional diagnoses (~+3.9 percentage points).
+- Added a pytest validation suite to verify funnel math, counterfactual baselines, output consistency, and conversion-rate validity across generated analytics and SQL outputs.
 
-- Added maturity-lag-adjusted trend analysis to reduce right-censoring bias for recent cohorts; observed substantial delay improvement in post-2021 cohorts (mean delay ~1,351 -> ~424 days, ~3.2x reduction), strengthening the time-based operations narrative.
+## Interview One-Liner
 
-- Delivered results through a 4-tab Streamlit + Plotly dashboard and a business-friendly reporting layer (`outputs/business_ready/`) with plain-language file/column names, enabling self-serve monitoring by operations and leadership users without analyst dependency.
+I took a vague care coordination problem, turned it into a measurable funnel, validated the numbers, and built business-ready outputs that show where patients are lost, how long they wait, and which operational fixes could move the outcome.
 
+## Non-Healthcare Framing
 
-## Resume-ready bullets (concise)
+This can also be described as an operations funnel analytics project. The same framework applies to customer onboarding, sales handoffs, claims processing, support escalation, or any multi-step workflow where records can stall, drop off, or complete.
 
-- Engineered a patient-level CHD pathway analytics mart (4,969 patients; 8 source tables), implemented 20+ automated data quality checks, and validated metric consistency with a multi-module pytest suite and CI workflow.
+## Best Stack Summary
 
-- Identified primary diagnosis bottlenecks (PCP->Referral ~44% drop-off; Specialist->Diagnosis ~45% drop-off, 575-day mean among converters), built a stage-level coordination scorecard, and analyzed 200+ providers for referral completion triage.
-
-- Modeled intervention scenarios with +/-5pp sensitivity and recommended closed-loop referral + diagnostic closure workflows, projecting ~196 additional diagnoses (+3.9pp), then deployed findings via Streamlit dashboard plus business-friendly exports for non-technical stakeholders.
-
-
-## Interview one-liner
-
-"I took a vague care-coordination problem, turned it into measurable pathway metrics, validated data quality and math rigor, and translated the analysis into operational recommendations with quantified upside that both analysts and hospital operators can use."
+Python + SQL + Excel-ready outputs + Power BI-ready data + pytest validation.

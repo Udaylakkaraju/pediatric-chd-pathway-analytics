@@ -1,7 +1,5 @@
 stage_order,stage_transition,patients_at_stage_entry,patients_converting_to_next,conversion_rate,drop_off_rate,avg_days_among_converters,median_days_among_converters,n_patients_used_for_median
-1,Symptom → PCP,4969,4333,0.872,0.128,700.63,458.0,3999
-2,PCP → Referral,4333,2436,0.5622,0.4378,272.62,0.0,2027
-3,Referral → Specialist,2436,1889,0.7755,0.2245,223.82,0.0,737
-4,Specialist → Diagnosis,1889,1042,0.5516,0.4484,575.15,332.0,345
-,,,,,,,,
-,SUMMARY — top_2_highest_drop_off_stages,Specialist → Diagnosis; PCP → Referral,,,,,,
+1,Symptom -> PCP,4969,4333,0.872,0.128,30.27,19.0,4333
+2,PCP -> Referral,4333,2436,0.5622,0.4378,14.78,10.0,2436
+3,Referral -> Specialist,2436,1889,0.7755,0.2245,49.98,36.0,1889
+4,Specialist -> Diagnosis,1889,1042,0.5516,0.4484,10.0,6.0,1042

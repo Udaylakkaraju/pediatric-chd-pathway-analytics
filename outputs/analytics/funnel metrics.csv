@@ -1,2 +1,2 @@
 symptom,pcp,referral,specialist,diagnosis,symptom_to_pcp_conversion,pcp_to_referral_conversion,referral_to_specialist_conversion,specialist_to_diagnosis_conversion
-4969,4333,2436,1889,1042,0.8720,0.5622,0.7755,0.5516
+4969,4333,2436,1889,1042,0.872,0.5622,0.7755,0.5516

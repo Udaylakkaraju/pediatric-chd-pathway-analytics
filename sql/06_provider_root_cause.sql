@@ -8,7 +8,7 @@ SELECT
   p.provider_name,
   p.specialty,
   COUNT(*) AS referrals_sent,
-  ROUND(AVG(CASE WHEN r.completed = 1 THEN 1.0 ELSE 0.0 END), 4) AS referral_completion_rate
+  ROUND(AVG(CASE WHEN r.completed IN ('1', 't', 'true', 'True') THEN 1.0 ELSE 0.0 END), 4) AS referral_completion_rate
 FROM stg_referrals r
 LEFT JOIN stg_providers p
   ON r.from_provider_id = p.provider_id

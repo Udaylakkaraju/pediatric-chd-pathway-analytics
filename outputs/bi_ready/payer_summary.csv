@@ -1,0 +1,5 @@
+insurance_type,total_patients,avg_delay,diagnosis_rate
+medicaid,2245,15.14,0.2053
+private,1995,13.44,0.212
+uninsured,476,16.28,0.2227
+other,253,13.66,0.2055

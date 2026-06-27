@@ -1,0 +1,201 @@
+provider_id,provider_name,specialty,referrals_sent,referral_completion_rate
+PRV0134,Dr. EM,Pediatrics,134,0.6716
+PRV0010,Dr. KE,Family Medicine,124,0.6774
+PRV0172,Dr. QW,Cardiology,137,0.6788
+PRV0129,Dr. ZX,Emergency Medicine,128,0.6797
+PRV0009,Dr. JB,Pediatrics,140,0.6857
+PRV0110,Dr. GS,Family Medicine,132,0.6894
+PRV0141,Dr. LH,Pediatrics,152,0.6908
+PRV0189,Dr. HV,Pediatrics,143,0.6923
+PRV0039,Dr. NN,Family Medicine,137,0.6934
+PRV0095,Dr. RZ,Pediatrics,154,0.6948
+PRV0118,Dr. OQ,Pediatrics,115,0.6957
+PRV0159,Dr. DJ,Pediatrics,132,0.697
+PRV0043,Dr. RZ,Pediatric Cardiology,120,0.7
+PRV0061,Dr. JB,Family Medicine,132,0.7045
+PRV0055,Dr. DJ,Pediatrics,136,0.7059
+PRV0065,Dr. NN,Family Medicine,140,0.7071
+PRV0153,Dr. XR,Pediatric Cardiology,103,0.7087
+PRV0136,Dr. GS,Emergency Medicine,141,0.7092
+PRV0171,Dr. PT,Family Medicine,131,0.7099
+PRV0066,Dr. OQ,Family Medicine,138,0.7101
+PRV0080,Dr. CG,Pediatrics,146,0.7123
+PRV0003,Dr. DJ,Family Medicine,150,0.7133
+PRV0017,Dr. RZ,Cardiology,143,0.7133
+PRV0151,Dr. VL,Pulmonology,154,0.7143
+PRV0178,Dr. WO,Family Medicine,133,0.7143
+PRV0194,Dr. MK,Pulmonology,141,0.7163
+PRV0182,Dr. AA,Pediatrics,152,0.7171
+PRV0091,Dr. NN,Pediatric Cardiology,131,0.7176
+PRV0046,Dr. UI,Pediatric Cardiology,124,0.7177
+PRV0081,Dr. DJ,Emergency Medicine,142,0.7183
+PRV0144,Dr. OQ,Pediatrics,128,0.7188
+PRV0019,Dr. TF,Pediatrics,118,0.7203
+PRV0069,Dr. RZ,Pediatrics,129,0.7209
+PRV0103,Dr. ZX,Family Medicine,129,0.7209
+PRV0011,Dr. LH,Family Medicine,140,0.7214
+PRV0157,Dr. BD,Cardiology,140,0.7214
+PRV0058,Dr. GS,Pediatrics,158,0.7215
+PRV0026,Dr. AA,Family Medicine,115,0.7217
+PRV0197,Dr. PT,Pediatric Cardiology,126,0.7222
+PRV0060,Dr. IY,Cardiology,130,0.7231
+PRV0140,Dr. KE,Pediatric Cardiology,130,0.7231
+PRV0180,Dr. YU,Pediatrics,141,0.7234
+PRV0086,Dr. IY,Pediatrics,134,0.7239
+PRV0098,Dr. UI,Emergency Medicine,127,0.7244
+PRV0102,Dr. YU,Pediatric Cardiology,138,0.7246
+PRV0018,Dr. SC,Pediatric Cardiology,117,0.7265
+PRV0021,Dr. VL,Emergency Medicine,150,0.7267
+PRV0041,Dr. PT,Pulmonology,143,0.7273
+PRV0038,Dr. MK,Pediatrics,132,0.7273
+PRV0092,Dr. OQ,Pediatrics,121,0.7273
+PRV0106,Dr. CG,Pediatrics,125,0.728
+PRV0164,Dr. IY,Cardiology,129,0.7287
+PRV0087,Dr. JB,Pediatrics,122,0.7295
+PRV0185,Dr. DJ,Pediatric Cardiology,148,0.7297
+PRV0072,Dr. UI,Pediatrics,137,0.7299
+PRV0050,Dr. YU,Pediatrics,126,0.7302
+PRV0199,Dr. RZ,Family Medicine,134,0.7313
+PRV0152,Dr. WO,Emergency Medicine,123,0.7317
+PRV0064,Dr. MK,Pediatrics,138,0.7319
+PRV0023,Dr. XR,Pediatrics,153,0.732
+PRV0120,Dr. QW,Emergency Medicine,135,0.7333
+PRV0034,Dr. IY,Family Medicine,143,0.7343
+PRV0036,Dr. KE,Pulmonology,113,0.7345
+PRV0165,Dr. JB,Cardiology,132,0.7348
+PRV0115,Dr. LH,Family Medicine,136,0.7353
+PRV0105,Dr. BD,Family Medicine,152,0.7368
+PRV0085,Dr. HV,Pediatrics,137,0.7372
+PRV0148,Dr. SC,Pediatrics,122,0.7377
+PRV0083,Dr. FP,Family Medicine,145,0.7379
+PRV0112,Dr. IY,Pediatric Cardiology,145,0.7379
+PRV0124,Dr. UI,Pediatric Cardiology,126,0.7381
+PRV0188,Dr. GS,Pediatrics,149,0.7383
+PRV0119,Dr. PT,Family Medicine,142,0.7394
+PRV0012,Dr. MK,Pulmonology,127,0.7402
+PRV0104,Dr. AA,Family Medicine,135,0.7407
+PRV0057,Dr. FP,Pediatrics,116,0.7414
+PRV0133,Dr. DJ,Pediatric Cardiology,124,0.7419
+PRV0094,Dr. QW,Family Medicine,128,0.7422
+PRV0183,Dr. BD,Family Medicine,128,0.7422
+PRV0135,Dr. FP,Pediatrics,132,0.7424
+PRV0145,Dr. PT,Pediatric Cardiology,136,0.7426
+PRV0097,Dr. TF,Family Medicine,156,0.7436
+PRV0190,Dr. IY,Cardiology,125,0.744
+PRV0068,Dr. QW,Pediatric Cardiology,133,0.7444
+PRV0139,Dr. JB,Family Medicine,137,0.7445
+PRV0029,Dr. DJ,Emergency Medicine,141,0.7447
+PRV0117,Dr. NN,Family Medicine,145,0.7448
+PRV0045,Dr. TF,Cardiology,130,0.7462
+PRV0031,Dr. FP,Family Medicine,142,0.7465
+PRV0084,Dr. GS,Emergency Medicine,154,0.7468
+PRV0192,Dr. KE,Cardiology,127,0.748
+PRV0184,Dr. CG,Cardiology,135,0.7481
+PRV0051,Dr. ZX,Family Medicine,131,0.7481
+PRV0109,Dr. FP,Pediatrics,140,0.75
+PRV0146,Dr. QW,Family Medicine,140,0.75
+PRV0108,Dr. EM,Family Medicine,132,0.75
+PRV0123,Dr. TF,Family Medicine,128,0.75
+PRV0024,Dr. YU,Pediatrics,129,0.7519
+PRV0113,Dr. JB,Family Medicine,121,0.7521
+PRV0002,Dr. CG,Pediatrics,158,0.7532
+PRV0166,Dr. KE,Pediatrics,150,0.7533
+PRV0049,Dr. XR,Family Medicine,126,0.754
+PRV0052,Dr. AA,Family Medicine,118,0.7542
+PRV0025,Dr. ZX,Pediatrics,106,0.7547
+PRV0162,Dr. GS,Cardiology,139,0.7554
+PRV0073,Dr. VL,Family Medicine,135,0.7556
+PRV0130,Dr. AA,Family Medicine,119,0.7563
+PRV0035,Dr. JB,Pediatrics,111,0.7568
+PRV0170,Dr. OQ,Emergency Medicine,132,0.7576
+PRV0174,Dr. SC,Pediatrics,128,0.7578
+PRV0096,Dr. SC,Pediatrics,120,0.7583
+PRV0070,Dr. SC,Cardiology,116,0.7586
+PRV0047,Dr. VL,Pulmonology,112,0.7589
+PRV0056,Dr. EM,Pediatrics,133,0.7594
+PRV0093,Dr. PT,Pediatrics,125,0.76
+PRV0122,Dr. SC,Emergency Medicine,142,0.7606
+PRV0181,Dr. ZX,Pediatrics,134,0.7612
+PRV0088,Dr. KE,Cardiology,130,0.7615
+PRV0014,Dr. OQ,Emergency Medicine,147,0.7619
+PRV0196,Dr. OQ,Pediatric Cardiology,122,0.7623
+PRV0101,Dr. XR,Pediatrics,123,0.7642
+PRV0142,Dr. MK,Family Medicine,140,0.7643
+PRV0143,Dr. NN,Family Medicine,140,0.7643
+PRV0100,Dr. WO,Pediatrics,136,0.7647
+PRV0033,Dr. HV,Pulmonology,119,0.7647
+PRV0147,Dr. RZ,Family Medicine,128,0.7656
+PRV0138,Dr. IY,Pediatrics,137,0.7664
+PRV0107,Dr. DJ,Family Medicine,116,0.7672
+PRV0175,Dr. TF,Pediatrics,116,0.7672
+PRV0074,Dr. WO,Pediatrics,129,0.7674
+PRV0030,Dr. EM,Pediatrics,138,0.7681
+PRV0114,Dr. KE,Emergency Medicine,138,0.7681
+PRV0028,Dr. CG,Pediatrics,134,0.7687
+PRV0048,Dr. WO,Family Medicine,117,0.7692
+PRV0071,Dr. TF,Emergency Medicine,148,0.7703
+PRV0037,Dr. LH,Cardiology,131,0.771
+PRV0067,Dr. PT,Cardiology,149,0.7718
+PRV0020,Dr. UI,Family Medicine,136,0.7721
+PRV0125,Dr. VL,Pediatric Cardiology,136,0.7721
+PRV0131,Dr. BD,Pediatrics,145,0.7724
+PRV0082,Dr. EM,Pediatrics,123,0.7724
+PRV0191,Dr. JB,Pediatric Cardiology,154,0.7727
+PRV0161,Dr. FP,Family Medicine,110,0.7727
+PRV0032,Dr. GS,Emergency Medicine,128,0.7734
+PRV0059,Dr. HV,Pediatrics,137,0.7737
+PRV0198,Dr. QW,Family Medicine,107,0.7757
+PRV0042,Dr. QW,Pediatrics,134,0.7761
+PRV0005,Dr. FP,Pulmonology,130,0.7769
+PRV0127,Dr. XR,Pediatrics,135,0.7778
+PRV0155,Dr. ZX,Family Medicine,135,0.7778
+PRV0007,Dr. HV,Cardiology,126,0.7778
+PRV0006,Dr. GS,Family Medicine,131,0.7786
+PRV0090,Dr. MK,Pulmonology,122,0.7787
+PRV0001,Dr. BD,Cardiology,132,0.7803
+PRV0121,Dr. RZ,Pediatrics,137,0.781
+PRV0150,Dr. UI,Emergency Medicine,137,0.781
+PRV0158,Dr. CG,Emergency Medicine,147,0.7823
+PRV0177,Dr. VL,Family Medicine,162,0.784
+PRV0126,Dr. WO,Pediatrics,125,0.784
+PRV0193,Dr. LH,Family Medicine,125,0.784
+PRV0079,Dr. BD,Pulmonology,140,0.7857
+PRV0013,Dr. NN,Pediatrics,145,0.7862
+PRV0044,Dr. SC,Emergency Medicine,145,0.7862
+PRV0063,Dr. LH,Cardiology,127,0.7874
+PRV0132,Dr. CG,Pediatric Cardiology,146,0.7877
+PRV0076,Dr. YU,Pediatrics,132,0.7879
+PRV0004,Dr. EM,Family Medicine,151,0.7881
+PRV0154,Dr. YU,Pediatrics,123,0.7886
+PRV0054,Dr. CG,Pediatric Cardiology,119,0.7899
+PRV0168,Dr. MK,Emergency Medicine,124,0.7903
+PRV0186,Dr. EM,Pediatrics,148,0.7905
+PRV0078,Dr. AA,Pediatrics,134,0.791
+PRV0062,Dr. KE,Pediatrics,115,0.7913
+PRV0075,Dr. XR,Pediatrics,115,0.7913
+PRV0195,Dr. NN,Family Medicine,135,0.7926
+PRV0022,Dr. WO,Pulmonology,111,0.7928
+PRV0169,Dr. NN,Family Medicine,150,0.7933
+PRV0173,Dr. RZ,Pediatrics,136,0.7941
+PRV0149,Dr. TF,Pediatrics,146,0.7945
+PRV0156,Dr. AA,Family Medicine,123,0.7967
+PRV0016,Dr. QW,Pediatric Cardiology,128,0.7969
+PRV0163,Dr. HV,Cardiology,133,0.797
+PRV0128,Dr. YU,Pediatrics,129,0.7984
+PRV0053,Dr. BD,Pediatrics,125,0.8
+PRV0099,Dr. VL,Pediatrics,161,0.8012
+PRV0116,Dr. MK,Pulmonology,151,0.8013
+PRV0200,Dr. SC,Pediatric Cardiology,147,0.8027
+PRV0008,Dr. IY,Pediatrics,135,0.8074
+PRV0111,Dr. HV,Family Medicine,151,0.8079
+PRV0137,Dr. HV,Pediatric Cardiology,141,0.8085
+PRV0167,Dr. LH,Pediatric Cardiology,132,0.8106
+PRV0077,Dr. ZX,Emergency Medicine,118,0.8136
+PRV0089,Dr. LH,Family Medicine,157,0.8153
+PRV0040,Dr. OQ,Pediatrics,131,0.8168
+PRV0027,Dr. BD,Pediatrics,138,0.8188
+PRV0187,Dr. FP,Family Medicine,123,0.8211
+PRV0160,Dr. EM,Emergency Medicine,118,0.822
+PRV0015,Dr. PT,Pediatric Cardiology,153,0.8235
+PRV0179,Dr. XR,Family Medicine,150,0.84
+PRV0176,Dr. UI,Pulmonology,125,0.848

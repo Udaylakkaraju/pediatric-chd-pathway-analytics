@@ -1,0 +1,5 @@
+stage,dropoff_rate
+Symptom -> Primary Care,0.128
+Primary Care -> Referral,0.4378
+Referral -> Specialist,0.2245
+Specialist -> Diagnosis,0.4484
