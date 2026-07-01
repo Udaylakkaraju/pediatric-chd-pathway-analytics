@@ -1,0 +1,7 @@
+check_name,issue_count,status
+Diagnosis before referral,0,PASS
+Encounter dates before birth,0,PASS
+Encounter patient foreign keys,0,PASS
+Patient ID uniqueness,0,PASS
+Referral dates before birth,0,PASS
+Referral patient foreign keys,0,PASS

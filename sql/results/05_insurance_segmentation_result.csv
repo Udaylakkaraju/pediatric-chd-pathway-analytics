@@ -1,5 +1,5 @@
-payer,patients,avg_delay_score,diagnosis_rate
-medicaid,2245,15.14,0.2053
-private,1995,13.44,0.212
-uninsured,476,16.28,0.2227
-other,253,13.66,0.2055
+payer,patients,referral_rate,specialist_completion_rate,diagnosis_rate,avg_specialist_wait_days_among_completed
+private,6499,0.589,0.4251,0.2927,36.5
+medicaid,6216,0.569,0.3515,0.2481,45.5
+uninsured,1322,0.4939,0.2526,0.1778,45.6
+other,963,0.5846,0.3894,0.2793,36.5

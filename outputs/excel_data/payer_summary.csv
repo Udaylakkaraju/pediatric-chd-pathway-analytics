@@ -1,0 +1,5 @@
+insurance_type,total_patients,referral_rate,specialist_completion_rate,diagnosis_rate,median_referral_to_specialist_days
+private,6499,0.589,0.4251,0.2927,25.0
+medicaid,6216,0.569,0.3515,0.2481,31.0
+uninsured,1322,0.4939,0.2526,0.1778,33.0
+other,963,0.5846,0.3894,0.2793,26.0

@@ -1,0 +1,16 @@
+{
+  "project_name": "Pediatric CHD Pathway Analytics",
+  "subtitle": "Congenital heart diagnosis delay and care coordination analysis",
+  "patients_total": 15000,
+  "patients_diagnosed": 3948,
+  "diagnosis_rate": 0.2632,
+  "dropoff_primary_care_to_referral": 0.3536,
+  "dropoff_specialist_to_diagnosis": 0.3021,
+  "best_case_additional_diagnoses": 610.8,
+  "trend_rows": 54,
+  "top_recommendations": [
+    "Close the referral decision within 7 days of a primary care visit",
+    "Run a capacity-aware specialist scheduling queue",
+    "Close the specialist outcome within 14 days of the visit"
+  ]
+}

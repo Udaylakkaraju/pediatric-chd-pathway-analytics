@@ -1,0 +1,5 @@
+stage,drop_off_rate
+Symptom -> PCP,0.1149
+PCP -> Referral,0.3536
+Referral -> Specialist,0.3408
+Specialist -> Diagnosis,0.3021

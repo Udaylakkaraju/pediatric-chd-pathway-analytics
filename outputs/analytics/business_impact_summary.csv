@@ -1,0 +1,6 @@
+priority,recommendation,eligible_records,eligible_pct_of_cohort,baseline_metric,baseline_pct,target_pct,modeled_stage_completions,modeled_additional_diagnoses,time_impact,handling_minutes_per_record_assumption,estimated_staff_hours,illustrative_labor_cost,labor_cost_assumption_per_hour
+1,Close the referral decision,4695,31.3,PCP-to-referral drop-off,35.4,30.0,712,328,Decision documented within 7 days,8,626.0,20032.0,32.0
+2,Run a capacity-aware specialist queue,2924,19.5,Referral-to-specialist drop-off,34.1,28.0,521,364,"3-day median reduction = 16,971 patient-days earlier",10,487.3,15594.0,32.0
+3,Recover missed appointments,2032,13.5,Recovery rate assumption,0.0,10.0,203,142,No-show outreach in 48 hours; cancellations rebooked in 7 days,15,508.0,16256.0,32.0
+4,Close the specialist outcome,1709,11.4,Specialist-to-diagnosis drop-off,30.2,25.0,295,295,Outcome documented within 14 days,8,227.9,7293.0,32.0
+5,Review high-friction access cases,2533,16.9,Share of open referrals flagged high-friction,86.6,10.0,253,177,Barrier and next action documented at the 30-day review,20,844.3,27018.0,32.0

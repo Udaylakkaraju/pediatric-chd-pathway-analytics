@@ -1,7 +1,7 @@
 """
 Counterfactual scenarios: if stage conversion rates improve, how many more
 diagnoses (approx.) for the same symptom cohort? Uses sequential funnel math
-matching analytics/funnel metrics.csv.
+matching analytics/funnel_metrics.csv.
 """
 
 from __future__ import annotations

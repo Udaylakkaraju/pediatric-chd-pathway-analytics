@@ -1,133 +1,70 @@
 # Pediatric CHD Care Pathway Analytics
 
-> **End-to-end healthcare operations analytics project** — tracking 4,969 patients through a five-stage diagnostic pathway to identify where they are lost, how long they wait, and what operational changes would help the most.
+[![CI](https://github.com/Udaylakkaraju/pediatric-chd-pathway-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/Udaylakkaraju/pediatric-chd-pathway-analytics/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Tests](https://img.shields.io/badge/tests-18%20passing-brightgreen)
+![Data](https://img.shields.io/badge/synthetic%20data-100K%20patients-lightgrey)
 
-**Stack:** Python · SQL · Excel · Power BI-ready outputs · pytest
+**Only 1 in 4 kids with a CHD symptom in this cohort ever reach a diagnosis. This project finds out where the other 3 go missing — and what it would take to get them back.**
 
-**Data:** Synthetic EHR-style dataset. No real patient records.
+A healthcare operations analytics project built in **SQL, Excel, and Python**. I generated a synthetic, EHR-style dataset of 100,000 patients, modeled a 15,000-patient pediatric congenital heart disease (CHD) cohort moving through a five-stage care pathway, and used SQL and Excel to find exactly where the pathway leaks, why, and what fixing it is worth.
 
----
-
-## The Problem
-
-Only **21% of patients** in this cohort reach a recorded diagnosis. The other 79% stall or exit the pathway before that point — and the data shows *where*, *why*, and *for how long*.
-
-```
-Symptom  →  PCP Visit  →  Referral  →  Specialist  →  Diagnosis
-  4,969       4,333         2,436        1,889          1,042
-```
+No real patient data is used anywhere in this project.
 
 ---
 
-## Key Numbers
+## The Pathway, in One Picture
 
-| Metric | Value |
-|---|---|
-| Patients in cohort | 4,969 |
-| Reached diagnosis | 1,042 **(21.0%)** |
-| Largest single drop-off | Specialist → Diagnosis **(44.8%)** |
-| Second-largest drop-off | PCP → Referral **(43.8%)** |
-| Longest median wait | Referral → Specialist **(36 days)** |
-| Modeled uplift (2 × +5pp conversion) | **+196 additional diagnoses** |
-
----
-
-## Visual Story
-
-### The funnel — most patients never reach diagnosis
-
-![Pathway Funnel](outputs/charts/portfolio/01_pathway_funnel.png)
-
-### Two stages account for nearly all the loss
-
-![Stage Drop-off](outputs/charts/portfolio/02_stage_dropoff.png)
-
-### Specialty access is the longest wait-time bottleneck
-
-![Wait Time Bottleneck](outputs/charts/portfolio/03_wait_time_bottleneck.png)
-
-### Payer type and social vulnerability drive the widest access gaps
-
-![Access Segments](outputs/charts/portfolio/05_access_segments.png)
-
-### Targeting two conversion points models the most improvement
-
-![Scenario Impact](outputs/charts/portfolio/06_scenario_impact.png)
-
-### Recommendations translated into operating rules with triggers and SLAs
-
-![Operating Rules Roadmap](outputs/charts/portfolio/07_operating_rules_roadmap.png)
-
----
-
-## What I Built
-
-| Deliverable | Description |
-|---|---|
-| **Patient-level mart** | `data/marts/cleaned/` — cleaned, scored, stage-flagged |
-| **SQL analysis pack** | 13 queries covering funnel, segmentation, window functions, CTEs |
-| **Excel skills workbook** | `outputs/CHD_Excel_Skills.xlsx` — INDEX/MATCH, COUNTIFS, AVERAGEIF, nested IF, scenario calculator, dashboard |
-| **Power BI-ready tables** | `outputs/bi_ready/` — patient detail, funnel summary, stage drop-off, payer summary |
-| **Business-ready CSVs** | `outputs/business_ready/` — plain-language exports for non-technical stakeholders |
-| **Operating recommendations** | `docs/KEY_RECOMMENDATIONS.md` — rules with triggers, owners, SLAs, KPIs |
-| **Pytest validation suite** | Funnel math, counterfactual baselines, output consistency, conversion-rate validity |
-
----
-
-## Project Structure
-
-```
-data/
-  raw/                        Source-style synthetic EHR tables
-  marts/cleaned/              Patient-level analytical mart
-
-sql/                          13 SQL queries + regenerated results
-scripts/                      Data generation, QA, analytics, exports
-tests/                        Pytest validation suite
-
-outputs/
-  charts/portfolio/           Visual story (8 charts)
-  bi_ready/                   Power BI-ready fact and summary tables
-  business_ready/             Plain-language CSVs
-  analytics/                  Technical outputs — scorecard, counterfactuals, QC
-
-docs/
-  KEY_RECOMMENDATIONS.md      Operating rules with triggers, SLAs, and KPIs
-  DATA_DICTIONARY.md          Field definitions
+```text
+Symptom  ───▶  PCP Visit  ───▶  Referral  ───▶  Specialist  ───▶  Diagnosis
+ 15,000         13,276           8,581            5,657            3,948
+                 (88.5%)         (64.6%)          (65.9%)          (69.8%)
 ```
 
----
+![Patient pathway funnel](outputs/charts/01_pathway_funnel.png)
 
-## Stack
+Only **26.3%** of patients who show a symptom ever reach a recorded diagnosis. The other 73.7% exit somewhere along the way — and the data shows exactly where.
 
-| Layer | Tools |
-|---|---|
-| Data generation & cleaning | Python, pandas, numpy |
-| Analysis | SQL (SQLite), Python |
-| Excel skills | COUNTIFS, AVERAGEIF, INDEX/MATCH, nested IF, charts, dashboard |
-| Data quality | pytest, QC report |
-| BI outputs | Power BI-ready CSVs, Excel workbook |
-| Scenario modeling | Python sequential funnel model |
+## The Story in 6 Numbers
 
----
+| # | Finding | So what |
+|---:|---|---|
+| 1 | **26.3%** diagnosis completion (3,948 of 15,000) | Most of the cohort never gets resolved |
+| 2 | **35.4%** drop-off, PCP → Referral | The single biggest leak in the pathway |
+| 3 | **28-day** median wait, Referral → Specialist | The longest bottleneck once patients *are* moving |
+| 4 | **42.0% vs. 29.9%** specialist completion, high- vs. low-capacity networks | A 12-point gap driven purely by network capacity |
+| 5 | **29.3% vs. 17.8%** diagnosis rate, private vs. uninsured patients | Access barriers compound on top of clinical ones |
+| 6 | **~610 additional diagnoses** modeled from two targeted +5pt conversion fixes | The gap is fixable, and the fix is quantifiable |
 
-## Quick Start
+## Where Patients Fall Out — and Why
 
-```bash
-pip install -r requirements.txt
-python scripts/regenerate_realistic_data.py
-python scripts/build_core_analytics_outputs.py
-python scripts/run_sql_queries.py
-pytest
-```
+<table>
+<tr>
+<td><img src="outputs/charts/02_stage_dropoff.png" width="440"></td>
+<td><img src="outputs/charts/03_wait_time_by_stage.png" width="440"></td>
+</tr>
+<tr>
+<td><img src="outputs/charts/04_payer_comparison.png" width="440"></td>
+<td><img src="outputs/charts/05_capacity_comparison.png" width="440"></td>
+</tr>
+</table>
 
----
+The two biggest losses — **PCP → Referral (35.4%)** and **Referral → Specialist (34.1%)** — are back to back, and the second one also carries the longest wait (28 median days). That combination is why the top two recommendations below both target that middle stretch of the pathway. Payer type and network capacity then stack an access gap on top of the operational one: uninsured patients complete diagnosis at little more than half the rate of privately insured patients, and low-capacity networks lag high-capacity ones by 12 points on specialist completion.
 
-## Docs
+## What I'd Actually Do About It
 
-- [`docs/KEY_RECOMMENDATIONS.md`](docs/KEY_RECOMMENDATIONS.md) — operating rules with triggers, owners, SLAs, and KPIs
-- [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) — field definitions for all columns
+Translated into five owned, timed, measurable operating rules — not just observations:
 
----
+| Priority | Queue | Problem | Target | Modeled outcome |
+|---|---:|---|---|---:|
+| 1 | 4,695 unresolved referral decisions | 35.4% PCP→referral drop-off | Cut to 30.0% | **+328 diagnoses** |
+| 2 | 2,924 open referrals | 34.1% referral→specialist drop-off, 28-day wait | Cut to 28.0%, wait to 25 days | **+364 diagnoses**, 16,971 patient-days earlier access |
+| 3 | 2,032 missed appointments | No-shows, cancellations, unreachable | Recover 10% | **+142 diagnoses** |
+| 4 | 1,709 unclosed specialist visits | 30.2% specialist→diagnosis drop-off | Cut to 25.0% | **+295 diagnoses** |
+| 5 | 2,533 high-friction referrals | 86.6% of open queue carries an access flag | Resolve 10% | **+177 diagnoses** |
 
-*Synthetic data only. Designed to demonstrate analytics methodology — not real clinical evidence.*
+Every number above ties back to an SLA, an owner, and a measurement plan — full detail in [`docs/KEY_RECOMMENDATIONS.md`](docs/KEY_RECOMMENDATIONS.md). These are standalone planning estimates (populations overlap), not a sum, and they're framed as workload/timing effects, not a dollar ROI claim — the dataset doesn't contain cost or reimbursement data to support one.
+
+## The Deliverable: An Interactive Excel Workbook
+
+The full analysis lives in an interactive Excel workbook, not just static tables. A recruiter can open it and filter the entire pathway by payer, 

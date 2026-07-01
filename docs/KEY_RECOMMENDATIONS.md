@@ -1,223 +1,108 @@
-# Key Recommendations: Operating Rules
+# Quantified Business Recommendations
 
-These recommendations convert the analysis into concrete workflow rules that an operations team could implement.
+These recommendations convert the synthetic pathway findings into measurable operating rules. Counts and baseline rates are observed in the project data. Modeled outcomes assume later-stage conversion remains constant. Labor figures are illustrative workload estimates using an editable **$32 loaded hourly cost**, not claimed savings or clinical ROI.
 
-## Baseline Metrics
+## Executive Decision Table
 
-| Metric | Current value |
-|---|---:|
-| Diagnosis completion rate | 21.0% |
-| PCP -> Referral drop-off | 43.8% |
-| Specialist -> Diagnosis drop-off | 44.8% |
-| Referral -> Specialist median wait | 36 days |
-| Combined +5pp referral and diagnosis closure scenario | +195.5 diagnoses |
+| Priority | Eligible queue | Current problem | Target | Standalone modeled outcome | Time implication | Illustrative implementation effort |
+|---|---:|---|---|---:|---|---:|
+| Close referral decisions | 4,695 (31.3% of cohort) | 35.4% PCP-to-referral drop-off | 30.0% | +712 referrals; **+328 diagnoses** | Decision recorded within 7 days | 626 hours / **$20,032** |
+| Capacity-aware scheduling | 2,924 (19.5%) | 34.1% referral-to-specialist drop-off | 28.0% | +521 specialist visits; **+364 diagnoses** | Reducing median wait 28 to 25 days equals **16,971 patient-days earlier** across current completers | 487 hours / **$15,594** |
+| Recover appointments | 2,032 (13.5%) | No-show, cancellation, or unable-to-contact queue | Recover 10% | +203 visits; **+142 diagnoses** | Outreach within 48 hours; cancellation rebooking within 7 days | 508 hours / **$16,256** |
+| Close specialist outcomes | 1,709 (11.4%) | 30.2% specialist-to-diagnosis drop-off | 25.0% | **+295 diagnoses** | Outcome recorded within 14 days | 228 hours / **$7,293** |
+| Navigate high-friction cases | 2,533 (16.9%) | 86.6% of open referrals carry an access flag | Resolve 10% to a visit | +253 visits; **+177 diagnoses** | Barrier and next action recorded at day 30 | 844 hours / **$27,018** |
 
-## Rule 1: Referral must have a documented outcome within 7 days
+The scenarios are **standalone planning estimates** and should not be summed because the appointment and high-friction populations overlap the open-referral queue.
 
-**Trigger:** Patient has a primary care visit with suspected CHD.
+## 1. Close the Referral Decision
 
-**Required outcome within 7 days:**
-- referral sent
-- referral not needed, reason documented
-- family declined, reason documented
-- unable to contact, outreach attempt documented
+**Problem:** Of 13,276 patients reaching primary care, 4,695 have no subsequent referral, equal to 31.3% of the full cohort and a 35.4% stage drop-off.
 
-**Owner:** Primary care operations / referral coordinator.
+**Operating rule:** At day 7, require one documented outcome: referral sent, referral not indicated with reason, family declined, or outreach unsuccessful. Route cases still unresolved at day 14 to the clinic operations manager.
 
-**Escalation:** If no referral outcome after 7 days, case appears on the referral exception list.
+**Owner:** Primary-care referral coordinator.
 
-**KPI:** PCP -> Referral conversion rate.
+**Business target:** Reduce stage drop-off to 30.0%. This creates approximately 712 additional referrals and 328 additional diagnoses if downstream conversion remains unchanged.
 
-**Target:** Reduce PCP -> Referral drop-off from **43.8%** to below **35%**.
+**Measurement:** Weekly unresolved count, percentage resolved within 7 days, and PCP-to-referral conversion.
 
-**Why this matters:** This is one of the two largest loss points in the pathway.
+## 2. Run a Capacity-Aware Specialist Queue
 
-## Rule 2: Critical referrals must be scheduled within 7 days
+**Problem:** 2,924 referrals remain open. The queue includes 754 critical, 1,137 urgent, and 1,033 routine referrals. Low-capacity networks complete specialist visits for 29.9% of the cohort versus 42.0% in high-capacity networks.
 
-**Trigger:** `referral_priority = critical`.
+**Operating rule:** Schedule critical referrals within 7 days and urgent referrals within 14 days. Review routine cases open at day 30 for authorization, financial clearance, appointment status, distance, and alternate-site capacity; escalate unresolved cases at day 45.
 
-**Required action:** Specialist appointment scheduled within 7 days of referral.
+**Owner:** Specialty scheduling lead.
 
-**Owner:** Specialty scheduling team.
+**Business target:** Reduce referral-to-specialist drop-off from 34.1% to 28.0%, producing about 521 additional specialist visits and 364 diagnoses at the current diagnostic-closure rate.
 
-**Escalation:** If no appointment is scheduled by day 7, route to care navigation lead.
+**Time target:** Reduce median completed wait from 28 to 25 days. Applied to the current 5,657 completed visits, that represents 16,971 patient-days of earlier specialist access. This is a timing measure, not staff-hours saved.
 
-**KPI:** Percent of critical referrals scheduled within 7 days.
+## 3. Recover Missed Appointments
 
-**Target:** Greater than **90%** of critical referrals scheduled within 7 days.
+**Problem:** 2,032 patients require appointment recovery: 692 no-shows, 613 cancellations, and 727 unable-to-contact cases.
 
-**Why this matters:** Critical cases should not sit in the same queue as routine referrals.
-
-## Rule 3: Urgent referrals must be scheduled within 14 days
-
-**Trigger:** `referral_priority = urgent`.
-
-**Required action:** Specialist appointment scheduled within 14 days of referral.
-
-**Owner:** Specialty scheduling team.
-
-**Escalation:** If no appointment is scheduled by day 14, review capacity and contact family.
-
-**KPI:** Percent of urgent referrals scheduled within 14 days.
-
-**Target:** Greater than **85%** of urgent referrals scheduled within 14 days.
-
-**Why this matters:** Urgent referrals are a manageable subset where access delays should be actively monitored.
-
-## Rule 4: Routine referrals waiting more than 45 days require review
-
-**Trigger:** Routine referral has no completed specialist visit after 45 days.
-
-**Required action:** Review appointment status and document one of:
-- scheduled pending
-- cancelled and rescheduled
-- no-show outreach started
-- unable to contact
-- capacity delay
-- family cost/travel barrier
-
-**Owner:** Referral coordination / care navigation.
-
-**Escalation:** If still unresolved after 60 days, route to operations manager.
-
-**KPI:** Median Referral -> Specialist wait time.
-
-**Target:** Keep median Referral -> Specialist wait at or below **36 days**, then reduce toward **30 days**.
-
-**Why this matters:** Referral -> Specialist is the longest wait-time step.
-
-## Rule 5: No-shows must receive outreach within 48 hours
-
-**Trigger:** `specialist_appointment_status = no_show`.
-
-**Required action within 48 hours:**
-- call/text caregiver
-- document barrier
-- reschedule or close with reason
+**Operating rule:** Contact no-shows within 48 hours, offer cancelled cases a new date within 7 days, and make two attempts using different channels for unable-to-contact cases before community-outreach escalation.
 
 **Owner:** Care navigation team.
 
-**Escalation:** If no contact after two attempts, flag as unable to contact and route to community outreach workflow.
+**Business target:** Recover 10% of the queue, equal to about 203 additional specialist visits and 142 diagnoses at the current 69.8% specialist-to-diagnosis conversion.
 
-**KPI:** Percent of no-shows contacted within 48 hours.
+**Measurement:** Recovery rate by status, percentage contacted within SLA, days to rebooking, and eventual specialist completion.
 
-**Target:** Greater than **90%** outreach completion.
+## 4. Close the Specialist Outcome
 
-**Why this matters:** No-shows are not just lost patients; they are a recoverable follow-up queue.
+**Problem:** 1,709 completed specialist visits have no recorded diagnosis, rule-out, testing plan, or follow-up outcome. That is 30.2% of specialist visits and 11.4% of the full cohort.
 
-## Rule 6: Cancelled visits must be rescheduled within 7 days
+**Operating rule:** Add visits without an outcome after 14 days to a diagnostic-closure queue. Require diagnosis, rule-out, testing plan, or documented follow-up disposition.
 
-**Trigger:** `specialist_appointment_status = cancelled`.
+**Owner:** Cardiology operations and documentation-quality lead.
 
-**Required action:** New appointment date scheduled within 7 days.
+**Business target:** Reduce stage drop-off to 25.0%, closing approximately 295 additional outcomes.
 
-**Owner:** Specialty scheduling team.
+**Measurement:** Open closure queue, percentage closed within 14 days, and specialist-to-diagnosis conversion.
 
-**Escalation:** If not rescheduled within 7 days, route to scheduling supervisor.
+## 5. Navigate High-Friction Access Cases
 
-**KPI:** Percent of cancelled appointments rescheduled within 7 days.
+**Problem:** 2,533 open referrals have at least one access flag: Medicaid/uninsured coverage, high SVI, travel over 40 miles, low-capacity assignment, or unresolved authorization/financial clearance. They represent 86.6% of the open-referral queue.
 
-**Target:** Greater than **85%** rescheduled within 7 days.
+**Operating rule:** At day 30, assign a navigator to record the dominant barrier, next action, and due date. Use financial-clearance terminology for uninsured patients rather than insurance authorization language.
 
-**Why this matters:** Cancelled visits can look like drop-off unless the reschedule loop is closed.
+**Owner:** Access manager.
 
-## Rule 7: Specialist visits without diagnosis must be closed within 14 days
+**Business target:** Resolve 10% of this queue to a specialist visit, equal to approximately 253 visits and 177 diagnoses at current downstream conversion.
 
-**Trigger:** Specialist visit completed and no diagnosis recorded.
+**Measurement:** Resolution rate by barrier, time to next action, completion gaps by payer/SVI/capacity, and urgent-case wait as a balancing measure.
 
-**Required outcome within 14 days:**
-- diagnosis confirmed
-- CHD ruled out
-- follow-up scheduled
-- diagnostic test ordered
-- documentation incomplete
-- patient did not return
+## Financial Interpretation
 
-**Owner:** Cardiology clinic operations / documentation quality team.
+The dataset does not contain salaries, reimbursement, treatment costs, or avoided-utilization values. Therefore, it cannot support a defensible dollar benefit or ROI claim.
 
-**Escalation:** If no documented outcome after 14 days, case appears on diagnostic closure work queue.
+The dollar amounts above estimate **labor capacity required to operate each queue**, using the following transparent assumptions:
 
-**KPI:** Specialist -> Diagnosis conversion rate.
+| Queue | Minutes per record | Loaded hourly cost |
+|---|---:|---:|
+| Referral decision review | 8 | $32 |
+| Open-referral scheduling review | 10 | $32 |
+| Appointment recovery outreach | 15 | $32 |
+| Diagnostic-closure review | 8 | $32 |
+| High-friction navigation | 20 | $32 |
 
-**Target:** More than **85%** of specialist visits have a documented outcome within 14 days.
+These assumptions should be replaced with an employer's actual handling times and loaded labor rate. A real ROI model would additionally require the financial value of a completed specialist visit or diagnosis.
 
-**Modeled impact:** Specialist -> Diagnosis +10pp adds about **189 diagnoses**.
+## Leadership Scorecard
 
-**Why this matters:** This is the largest drop-off point in the pathway.
+Review monthly:
 
-## Rule 8: High-friction access cases get navigator review at 30 days
+1. Diagnosis completion rate and count.
+2. PCP-to-referral drop-off and unresolved decisions over 7 days.
+3. Open referrals by priority, capacity tier, and age.
+4. Referral-to-specialist conversion and median completed wait.
+5. Appointment recovery rate and time to rebooking.
+6. Diagnostic-closure queue and 14-day closure rate.
+7. Completion gaps by payer, SVI, distance, and capacity.
+8. Staff hours used versus the workload assumption.
 
-**Trigger:** Referral is open for more than 30 days and any of the following are true:
-- Medicaid or uninsured
-- high SVI
-- distance to specialist greater than 40 miles
-- low-capacity clinic region
-- authorization pending or denied
+## Guardrail
 
-**Required action:** Care navigator reviews barrier and documents next action.
-
-**Owner:** Care navigation team.
-
-**Escalation:** If unresolved by 45 days, route to access manager.
-
-**KPI:** Median Referral -> Specialist wait by payer, SVI, distance, and capacity tier.
-
-**Target:** Reduce access gaps between high-friction and lower-friction groups.
-
-**Why this matters:** It turns equity/access analysis into a specific follow-up process.
-
-## Rule 9: Clinics below referral benchmark get workflow review
-
-**Trigger:** Clinic or provider group has at least 20 suspected CHD primary care cases and PCP -> Referral conversion below 50%.
-
-**Required action:** Review workflow for missed referral documentation, referral criteria, staffing, or follow-up process.
-
-**Owner:** Operations manager / primary care leadership.
-
-**Escalation:** Repeat low performance for two months triggers training or process redesign.
-
-**KPI:** PCP -> Referral conversion by clinic/provider group.
-
-**Target:** Bring low-performing groups above **50%** first, then toward pathway benchmark.
-
-**Why this matters:** It creates a practical way to use provider/clinic variation without blaming individual clinicians.
-
-## Rule 10: Review the five-metric pathway scorecard monthly
-
-**Trigger:** Monthly operations review.
-
-**Scorecard metrics:**
-1. Diagnosis completion rate
-2. PCP -> Referral drop-off
-3. Specialist -> Diagnosis drop-off
-4. Referral -> Specialist median wait
-5. Modeled additional diagnoses from scenario improvements
-
-**Owner:** Analytics + operations leadership.
-
-**Required action:** Assign an owner for any metric that worsens month over month.
-
-**KPI:** Month-over-month improvement in bottleneck metrics.
-
-**Target:** Improve pathway completion from **21.0%** toward **25.0%** using referral and diagnostic closure improvements.
-
-## Highest-Impact Package
-
-| Improvement package | Modeled result |
-|---|---:|
-| PCP -> Referral +5pp and Specialist -> Diagnosis +5pp | +195.5 diagnoses |
-| New modeled completion rate | 24.9% |
-
-## Plain-English Recommendation
-
-Do not start with a complex model. Start with workflow closure:
-
-1. Every suspected case needs a referral decision.
-2. Every referral needs a scheduled or documented outcome.
-3. Every missed/cancelled appointment needs follow-up.
-4. Every specialist visit needs a diagnosis, rule-out, or follow-up plan.
-5. Every month, leadership reviews whether those handoffs are improving.
-
-## Caveat
-
-These operating rules are based on synthetic data and are intended to demonstrate how analytics can become an operational playbook. They should be validated and adjusted before use in a real clinical setting.
+This is a synthetic operations model. The recommendations demonstrate workflow analytics and planning methods; they are not clinical guidance, causal estimates, or guaranteed financial returns.

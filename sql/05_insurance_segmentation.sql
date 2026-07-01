@@ -1,13 +1,16 @@
 ﻿-- File: 05_insurance_segmentation.sql
 -- Purpose: payer segmentation
--- Business question: Do diagnosis rates or delays vary meaningfully by insurance type?
--- Output: payer-level patient count, average delay score, and diagnosis rate
+-- Business question: Do pathway completion and specialist waits vary by payer?
+-- Wait is calculated only among completed specialist visits and labeled explicitly.
 
 SELECT
   insurance_type AS payer,
   COUNT(*) AS patients,
-  ROUND(AVG(delay_severity_score_clean), 2) AS avg_delay_score,
-  ROUND(AVG(CASE WHEN diagnosis_date IS NOT NULL THEN 1.0 ELSE 0.0 END), 4) AS diagnosis_rate
+  ROUND(AVG(CASE WHEN referral_date IS NOT NULL THEN 1.0 ELSE 0.0 END), 4) AS referral_rate,
+  ROUND(AVG(CASE WHEN specialist_date IS NOT NULL THEN 1.0 ELSE 0.0 END), 4) AS specialist_completion_rate,
+  ROUND(AVG(CASE WHEN diagnosis_date IS NOT NULL THEN 1.0 ELSE 0.0 END), 4) AS diagnosis_rate,
+  ROUND(AVG(CASE WHEN days_referral_to_specialist_clean IS NOT NULL THEN days_referral_to_specialist_clean END), 1)
+    AS avg_specialist_wait_days_among_completed
 FROM mart_delay_scored_cleaned
 GROUP BY insurance_type
 ORDER BY patients DESC;

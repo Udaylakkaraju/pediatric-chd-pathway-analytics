@@ -1,0 +1,6 @@
+access_group,patients,referred_patients,specialist_patients,diagnosed_patients,diagnosis_rate_pct,avg_referral_to_specialist_days
+Uninsured,1322,653,334,235,17.8,45.6
+High SVI + Long Distance,1221,689,367,267,21.9,45.8
+High SVI,2115,1132,717,487,23.0,39.1
+Long Distance,2189,1268,754,535,24.4,42.9
+Lower Access Risk,8153,4839,3485,2424,29.7,39.2

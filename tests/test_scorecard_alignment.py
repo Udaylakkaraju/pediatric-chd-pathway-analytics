@@ -8,7 +8,7 @@ import pytest
 
 
 def test_scorecard_matches_funnel(project_root):
-    funnel_path = project_root / "outputs" / "analytics" / "funnel metrics.csv"
+    funnel_path = project_root / "outputs" / "analytics" / "funnel_metrics.csv"
     score_path = project_root / "outputs" / "analytics" / "coordination_failure_scorecard.csv"
     if not score_path.exists():
         pytest.skip("regenerate with build_coordination_scorecard.py")

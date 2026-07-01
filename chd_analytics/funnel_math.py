@@ -12,7 +12,7 @@ from typing import Any
 
 
 def funnel_csv_path(project_root: Path) -> Path:
-    return project_root / "outputs" / "analytics" / "funnel metrics.csv"
+    return project_root / "outputs" / "analytics" / "funnel_metrics.csv"
 
 
 def load_funnel_metrics(project_root: Path) -> dict[str, Any]:

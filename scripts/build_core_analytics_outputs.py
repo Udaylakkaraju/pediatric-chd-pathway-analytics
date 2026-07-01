@@ -1,8 +1,8 @@
 """
 Build core analytics outputs directly from the cleaned patient mart.
 
-These CSVs feed the README, Excel/Power BI layer, Streamlit dashboard, and
-tests. Keeping them in one script helps prevent stale or contradictory numbers.
+These CSVs feed the README, Excel workbook, SQL review, and tests. Keeping them
+in one script helps prevent stale or contradictory numbers.
 """
 
 from __future__ import annotations
@@ -101,19 +101,24 @@ def build_stage_delay(df: pd.DataFrame) -> pd.DataFrame:
 def build_insurance(df: pd.DataFrame) -> pd.DataFrame:
     work = df.copy()
     work["_diagnosed"] = pd.to_datetime(work[COLS["diagnosis_date"]], errors="coerce").notna()
-    work["_delay"] = pd.to_numeric(work[COLS["delay_score"]], errors="coerce")
+    work["_referred"] = pd.to_datetime(work[COLS["referral_date"]], errors="coerce").notna()
+    work["_specialist"] = pd.to_datetime(work[COLS["specialist_date"]], errors="coerce").notna()
+    work["_specialist_wait"] = pd.to_numeric(work[COLS["referral_to_specialist"]], errors="coerce")
     out = (
         work.groupby("insurance_type", dropna=False)
         .agg(
             total_patients=("patient_id", "count"),
-            avg_delay=("_delay", "mean"),
+            referral_rate=("_referred", "mean"),
+            specialist_completion_rate=("_specialist", "mean"),
             diagnosis_rate=("_diagnosed", "mean"),
+            median_referral_to_specialist_days=("_specialist_wait", "median"),
         )
         .reset_index()
         .sort_values("total_patients", ascending=False)
     )
-    out["avg_delay"] = out["avg_delay"].round(2)
-    out["diagnosis_rate"] = out["diagnosis_rate"].round(4)
+    for col in ["referral_rate", "specialist_completion_rate", "diagnosis_rate"]:
+        out[col] = out[col].round(4)
+    out["median_referral_to_specialist_days"] = out["median_referral_to_specialist_days"].round(1)
     return out
 
 
@@ -130,18 +135,72 @@ def build_delay_buckets(df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def build_bi_patient_table(df: pd.DataFrame) -> pd.DataFrame:
+def build_access_segments(df: pd.DataFrame) -> pd.DataFrame:
+    work = df.copy()
+    work["_referred"] = pd.to_datetime(work[COLS["referral_date"]], errors="coerce").notna()
+    work["_specialist"] = pd.to_datetime(work[COLS["specialist_date"]], errors="coerce").notna()
+    work["_diagnosed"] = pd.to_datetime(work[COLS["diagnosis_date"]], errors="coerce").notna()
+    work["_wait"] = pd.to_numeric(work[COLS["referral_to_specialist"]], errors="coerce")
+    work["svi_tercile"] = pd.qcut(
+        pd.to_numeric(work["svi_index"], errors="coerce"),
+        3,
+        labels=["Low SVI", "Middle SVI", "High SVI"],
+    )
+
+    rows = []
+    for segment_type, column in [
+        ("Payer", "insurance_type"),
+        ("Provider capacity", "provider_capacity_tier"),
+        ("Social vulnerability", "svi_tercile"),
+    ]:
+        summary = (
+            work.groupby(column, observed=True)
+            .agg(
+                patients=("patient_id", "size"),
+                referral_rate=("_referred", "mean"),
+                specialist_completion_rate=("_specialist", "mean"),
+                diagnosis_rate=("_diagnosed", "mean"),
+                median_specialist_wait_days=("_wait", "median"),
+            )
+            .reset_index()
+            .rename(columns={column: "segment"})
+        )
+        summary.insert(0, "segment_type", segment_type)
+        rows.append(summary)
+    out = pd.concat(rows, ignore_index=True)
+    for col in ["referral_rate", "specialist_completion_rate", "diagnosis_rate"]:
+        out[col] = out[col].round(4)
+    out["median_specialist_wait_days"] = out["median_specialist_wait_days"].round(1)
+    return out
+
+
+def build_excel_patient_table(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     out["reached_primary_care"] = out[COLS["pcp_date"]].notna()
     out["received_referral"] = out[COLS["referral_date"]].notna()
     out["completed_specialist_visit"] = out[COLS["specialist_date"]].notna()
     out["received_diagnosis"] = out[COLS["diagnosis_date"]].notna()
+    out["received_intervention"] = out[COLS["intervention_date"]].notna()
     out["pathway_status"] = "Symptom documented only"
     out.loc[out["reached_primary_care"], "pathway_status"] = "Seen in primary care"
     out.loc[out["received_referral"], "pathway_status"] = "Referral created"
     out.loc[out["completed_specialist_visit"], "pathway_status"] = "Specialist visit completed"
     out.loc[out["received_diagnosis"], "pathway_status"] = "Diagnosis recorded"
     out["high_svi_flag"] = pd.to_numeric(out["svi_index"], errors="coerce") >= 0.67
+    out["open_referral_flag"] = out["received_referral"] & ~out["completed_specialist_visit"]
+    out["diagnostic_closure_flag"] = out["completed_specialist_visit"] & ~out["received_diagnosis"]
+    out["appointment_recovery_flag"] = out["specialist_appointment_status"].isin(
+        ["no_show", "cancelled", "unable_to_contact"]
+    )
+    out["high_friction_access_flag"] = out["open_referral_flag"] & (
+        out["insurance_type"].isin(["medicaid", "uninsured"])
+        | out["high_svi_flag"]
+        | (pd.to_numeric(out["distance_to_specialist_miles"], errors="coerce") > 40)
+        | out["provider_capacity_tier"].eq("low_capacity")
+        | out["authorization_status"].isin(
+            ["pending", "denied", "financial_assistance_pending", "financial_barrier"]
+        )
+    )
     return out[
         [
             "patient_id",
@@ -157,10 +216,21 @@ def build_bi_patient_table(df: pd.DataFrame) -> pd.DataFrame:
             "authorization_status",
             "specialist_appointment_status",
             "pathway_status",
+            COLS["symptom_date"],
+            COLS["pcp_date"],
+            COLS["referral_date"],
+            COLS["specialist_date"],
+            COLS["diagnosis_date"],
+            COLS["intervention_date"],
             "reached_primary_care",
             "received_referral",
             "completed_specialist_visit",
             "received_diagnosis",
+            "received_intervention",
+            "open_referral_flag",
+            "diagnostic_closure_flag",
+            "appointment_recovery_flag",
+            "high_friction_access_flag",
             *INTERVAL_COLS,
             COLS["delay_score"],
         ]
@@ -169,26 +239,29 @@ def build_bi_patient_table(df: pd.DataFrame) -> pd.DataFrame:
 
 def main() -> None:
     ANALYTICS.mkdir(parents=True, exist_ok=True)
-    bi_dir = ANALYTICS.parent / "bi_ready"
-    bi_dir.mkdir(parents=True, exist_ok=True)
+    excel_dir = ANALYTICS.parent / "excel_data"
+    excel_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(MART_CLEANED)
 
     funnel = build_funnel(df)
-    funnel.to_csv(ANALYTICS / "funnel metrics.csv", index=False)
-    build_stage_dropoff(funnel).to_csv(ANALYTICS / "stage dropoff.csv", index=False)
-    build_stage_delay(df).to_csv(ANALYTICS / "stage delay contribution.csv", index=False)
-    build_insurance(df).to_csv(ANALYTICS / "insurance analysis.csv", index=False)
-    build_delay_buckets(df).to_csv(ANALYTICS / "delay buckets.csv", index=False)
+    funnel.to_csv(ANALYTICS / "funnel_metrics.csv", index=False)
+    build_stage_dropoff(funnel).to_csv(ANALYTICS / "stage_dropoff.csv", index=False)
+    build_stage_delay(df).to_csv(ANALYTICS / "stage_delay_contribution.csv", index=False)
+    build_insurance(df).to_csv(ANALYTICS / "insurance_analysis.csv", index=False)
+    build_delay_buckets(df).to_csv(ANALYTICS / "delay_buckets.csv", index=False)
+    access = build_access_segments(df)
+    access.to_csv(ANALYTICS / "access_segment_summary.csv", index=False)
 
-    build_bi_patient_table(df).to_csv(bi_dir / "patient_pathway_detail.csv", index=False)
-    funnel.to_csv(bi_dir / "pathway_funnel_summary.csv", index=False)
-    build_stage_dropoff(funnel).to_csv(bi_dir / "stage_dropoff_rates.csv", index=False)
-    build_stage_delay(df).to_csv(bi_dir / "stage_wait_time_summary.csv", index=False)
-    build_insurance(df).to_csv(bi_dir / "payer_summary.csv", index=False)
+    build_excel_patient_table(df).to_csv(excel_dir / "patient_pathway_detail.csv", index=False)
+    funnel.to_csv(excel_dir / "pathway_funnel_summary.csv", index=False)
+    build_stage_dropoff(funnel).to_csv(excel_dir / "stage_dropoff_rates.csv", index=False)
+    build_stage_delay(df).to_csv(excel_dir / "stage_wait_time_summary.csv", index=False)
+    build_insurance(df).to_csv(excel_dir / "payer_summary.csv", index=False)
+    access.to_csv(excel_dir / "access_segment_summary.csv", index=False)
 
     print(f"Wrote core analytics outputs to {ANALYTICS}")
-    print(f"Wrote BI-ready outputs to {bi_dir}")
+    print(f"Wrote Excel analysis tables to {excel_dir}")
 
 
 if __name__ == "__main__":

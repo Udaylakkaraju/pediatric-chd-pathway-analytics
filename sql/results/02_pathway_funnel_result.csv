@@ -1,2 +1,2 @@
 symptom_patients,primary_care_patients,referral_patients,specialist_patients,diagnosed_patients,symptom_to_primary_care_rate,primary_care_to_referral_rate,referral_to_specialist_rate,specialist_to_diagnosis_rate
-4969,4333,2436,1889,1042,0.872,0.5622,0.7755,0.5516
+15000,13276,8581,5657,3948,0.8851,0.6464,0.6592,0.6979

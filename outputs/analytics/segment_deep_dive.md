@@ -4,55 +4,55 @@ _Synthetic cohort; descriptive segments only._
 ## insurance_type
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| medicaid | 2245 | 0.205 | 15.1 | 9.3 |
-| private | 1995 | 0.212 | 13.4 | 8.7 |
-| uninsured | 476 | 0.223 | 16.3 | 10.5 |
-| other | 253 | 0.206 | 13.7 | 8.3 |
+| private | 6499 | 0.293 | 11.5 | 8.5 |
+| medicaid | 6216 | 0.248 | 11.4 | 8.1 |
+| uninsured | 1322 | 0.178 | 9.9 | 6.5 |
+| other | 963 | 0.279 | 11.7 | 8.8 |
 
 ## chd_severity
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| Simple | 2687 | 0.125 | 18.4 | 12.2 |
-| Complex | 1997 | 0.327 | 9.4 | 6.5 |
-| Moderate | 285 | 0.179 | 13.1 | 8.0 |
+| Simple | 7911 | 0.168 | 13.9 | 10.8 |
+| Complex | 6202 | 0.383 | 8.1 | 5.8 |
+| Moderate | 887 | 0.276 | 10.9 | 7.2 |
 
 ## age_band
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| 0-2 | 2583 | 0.208 | 14.5 | 9.2 |
-| 3-5 | 1249 | 0.207 | 15.0 | 9.5 |
-| 6-12 | 926 | 0.216 | 13.2 | 8.5 |
-| 13+ | 211 | 0.227 | 16.6 | 8.5 |
+| 6-12 | 5858 | 0.275 | 11.4 | 8.3 |
+| 13+ | 4891 | 0.248 | 11.3 | 8.1 |
+| 3-5 | 3846 | 0.264 | 11.2 | 8.2 |
+| 0-2 | 405 | 0.267 | 12.0 | 8.5 |
 
 ## cohort_era
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| 2017-2020 | 2723 | 0.209 | 14.5 | 9.0 |
-| 2021+ | 2246 | 0.210 | 14.5 | 9.2 |
+| 2021+ | 8880 | 0.260 | 11.3 | 8.2 |
+| 2017-2020 | 6120 | 0.268 | 11.4 | 8.2 |
 
 ## svi_tertile
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| T1_lowest_SVI | 1657 | 0.264 | 15.3 | 9.7 |
-| T2_mid_SVI | 1656 | 0.197 | 14.3 | 9.1 |
-| T3_highest_SVI | 1656 | 0.168 | 13.9 | 8.5 |
+| T1_lowest_SVI | 5000 | 0.312 | 11.8 | 8.8 |
+| T2_mid_SVI | 5000 | 0.255 | 11.4 | 8.2 |
+| T3_highest_SVI | 5000 | 0.223 | 10.7 | 7.5 |
 
 ## insurance_x_severity
 | segment | n | diagnosis_rate | mean_delay | median_delay |
 |---|---:|---:|---:|---:|
-| medicaid | Simple | 1233 | 0.122 | 18.9 | 12.2 |
-| private | Simple | 1072 | 0.132 | 17.5 | 12.0 |
-| medicaid | Complex | 873 | 0.329 | 10.2 | 6.6 |
-| private | Complex | 812 | 0.318 | 8.1 | 6.0 |
-| uninsured | Simple | 245 | 0.114 | 20.4 | 14.2 |
-| uninsured | Complex | 207 | 0.362 | 11.8 | 8.6 |
-| medicaid | Moderate | 139 | 0.165 | 12.9 | 6.8 |
-| other | Simple | 137 | 0.117 | 16.8 | 10.8 |
-| private | Moderate | 111 | 0.207 | 12.8 | 8.8 |
-| other | Complex | 105 | 0.324 | 9.1 | 5.8 |
-| uninsured | Moderate | 24 | 0.125 | 13.3 | 7.3 |
-| other | Moderate | 11 | 0.182 | 17.9 | 12.9 |
+| private | Simple | 3440 | 0.188 | 14.1 | 11.0 |
+| medicaid | Simple | 3275 | 0.154 | 14.0 | 10.6 |
+| private | Complex | 2670 | 0.420 | 8.2 | 6.2 |
+| medicaid | Complex | 2592 | 0.369 | 8.1 | 5.5 |
+| uninsured | Simple | 683 | 0.098 | 12.2 | 8.8 |
+| uninsured | Complex | 551 | 0.278 | 7.2 | 4.2 |
+| other | Simple | 513 | 0.216 | 14.7 | 11.8 |
+| other | Complex | 389 | 0.375 | 8.0 | 5.4 |
+| private | Moderate | 389 | 0.350 | 11.1 | 7.8 |
+| medicaid | Moderate | 349 | 0.235 | 11.3 | 7.5 |
+| uninsured | Moderate | 88 | 0.170 | 8.8 | 5.6 |
+| other | Moderate | 61 | 0.197 | 10.6 | 6.2 |
 
 ### Callout (insurance × severity, n≥80, highest mean delay)
 
-- **uninsured | Simple**: n=245, diagnosis_rate=0.114, mean_delay=20.4
+- **other | Simple**: n=513, diagnosis_rate=0.216, mean_delay=14.7

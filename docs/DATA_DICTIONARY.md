@@ -6,7 +6,7 @@ Schema reference for the synthetic pediatric CHD pathway analytics project.
 
 File: `data/marts/cleaned/mart_delay_scored_cleaned.csv`
 
-Each row represents one synthetic pediatric patient.
+Each row represents one patient in the deliberately enriched 15,000-patient CHD operations cohort.
 
 ## Patient And Segment Fields
 
@@ -21,12 +21,12 @@ Each row represents one synthetic pediatric patient.
 
 ## Business Context Fields
 
-These fields were added to make the dataset easier to use in Power BI and easier to explain to non-technical stakeholders.
+These fields support business-friendly Excel and SQL analysis while keeping operational terminology clear to non-technical stakeholders.
 
 | Column | Meaning | Example Use |
 |---|---|---|
 | `referral_priority` | Operational urgency: `routine`, `urgent`, `critical` | Filter wait times by urgency |
-| `authorization_status` | Payer authorization state | Analyze access friction |
+| `authorization_status` | Authorization or financial-clearance state; uninsured values use `self_pay_cleared`, `financial_assistance_pending`, or `financial_barrier` | Analyze access friction without mislabeling uninsured workflows |
 | `specialist_appointment_status` | Specialist appointment outcome | Separate completed visits from no-shows/cancellations |
 | `clinic_region` | Synthetic clinic region | Regional dashboard slicer |
 | `provider_capacity_tier` | Synthetic capacity grouping | Compare low/standard/high capacity |
@@ -64,23 +64,24 @@ Use medians for most stakeholder communication because wait times are right-skew
 
 | File | Purpose |
 |---|---|
-| `outputs/analytics/funnel metrics.csv` | Stage counts and conversion rates |
-| `outputs/analytics/stage dropoff.csv` | Drop-off rate by pathway step |
-| `outputs/analytics/stage delay contribution.csv` | Average wait by stage |
+| `outputs/analytics/funnel_metrics.csv` | Stage counts and conversion rates |
+| `outputs/analytics/stage_dropoff.csv` | Drop-off rate by pathway step |
+| `outputs/analytics/stage_delay_contribution.csv` | Average wait by stage |
 | `outputs/analytics/coordination_failure_scorecard.csv` | Conversion, drop-off, mean wait, median wait |
 | `outputs/analytics/segment_comparison.csv` | Segment-level diagnosis and delay comparison |
 | `outputs/analytics/recommendations_counterfactuals.csv` | Scenario estimates for operational improvements |
+| `outputs/analytics/business_impact_summary.csv` | Quantified queue, outcome, time, and assumption-based labor model |
 | `outputs/analytics/QC_Report.csv` | Data quality checks |
 
-## Power BI-Ready Tables
+## Excel Analysis Tables
 
 | File | Purpose |
 |---|---|
-| `outputs/bi_ready/patient_pathway_detail.csv` | Main patient-level fact table |
-| `outputs/bi_ready/pathway_funnel_summary.csv` | Funnel KPI summary |
-| `outputs/bi_ready/stage_dropoff_rates.csv` | Drop-off chart input |
-| `outputs/bi_ready/stage_wait_time_summary.csv` | Wait-time chart input |
-| `outputs/bi_ready/payer_summary.csv` | Payer comparison |
+| `outputs/excel_data/patient_pathway_detail.csv` | Main patient-level analysis table |
+| `outputs/excel_data/pathway_funnel_summary.csv` | Funnel KPI summary |
+| `outputs/excel_data/stage_dropoff_rates.csv` | Drop-off analysis input |
+| `outputs/excel_data/stage_wait_time_summary.csv` | Wait-time analysis input |
+| `outputs/excel_data/payer_summary.csv` | Payer comparison |
 
 ## KPI Definitions
 
@@ -95,6 +96,7 @@ Use medians for most stakeholder communication because wait times are right-skew
 ## Interpretation Guardrails
 
 - Data is synthetic and demonstration-grade.
+- The CHD cohort is oversampled for pathway analysis and is not a prevalence estimate.
 - Findings are descriptive, not causal.
 - Scenario estimates are planning math, not program forecasts.
 - Provider and segment outputs should be used for operational triage, not individual performance judgment.

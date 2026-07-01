@@ -3,13 +3,16 @@ Create business-friendly copies of analytics outputs:
 - simpler file names
 - plain-language column names
 
+Also writes outputs/business_ready/website_metrics.json, a small JSON payload
+of headline metrics for use on an external portfolio site (e.g. GitHub Pages).
+
 Outputs are written to: outputs/business_ready/
 """
 
 from __future__ import annotations
 
 import _bootstrap_path  # noqa: F401
-from pathlib import Path
+import json
 
 import pandas as pd
 
@@ -32,7 +35,7 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     _write(
-        "funnel metrics.csv",
+        "funnel_metrics.csv",
         "patient_pathway_summary.csv",
         {
             "symptom": "patients_with_symptoms",
@@ -48,7 +51,7 @@ def main() -> None:
     )
 
     _write(
-        "stage dropoff.csv",
+        "stage_dropoff.csv",
         "stage_loss_rates.csv",
         {
             "stage": "pathway_step",
@@ -57,7 +60,7 @@ def main() -> None:
     )
 
     _write(
-        "stage delay contribution.csv",
+        "stage_delay_contribution.csv",
         "average_wait_by_stage.csv",
         {
             "symptom_to_pcp": "avg_days_symptom_to_primary_care",
@@ -68,7 +71,7 @@ def main() -> None:
     )
 
     _write(
-        "insurance analysis.csv",
+        "insurance_analysis.csv",
         "payer_comparison.csv",
         {
             "insurance_type": "payer_type",
@@ -129,6 +132,70 @@ def main() -> None:
             "metric_value": "value",
             "detail": "description",
         },
+    )
+
+    # Website metrics payload (simple JSON for GitHub Pages fetch)
+    funnel_path = ANALYTICS / "funnel_metrics.csv"
+    dropoff_path = ANALYTICS / "stage_dropoff.csv"
+    scenario_path = ANALYTICS / "recommendations_counterfactuals.csv"
+    trend_path = ANALYTICS / "trend_by_month.csv"
+
+    website_metrics: dict[str, object] = {
+        "project_name": "Pediatric CHD Pathway Analytics",
+        "subtitle": "Congenital heart diagnosis delay and care coordination analysis",
+    }
+
+    if funnel_path.exists():
+        f = pd.read_csv(funnel_path).iloc[0]
+        symptom = int(f["symptom"])
+        diagnosis = int(f["diagnosis"])
+        diagnosis_rate = (diagnosis / symptom) if symptom else 0.0
+        website_metrics.update(
+            {
+                "patients_total": symptom,
+                "patients_diagnosed": diagnosis,
+                "diagnosis_rate": round(diagnosis_rate, 4),
+            }
+        )
+
+    if dropoff_path.exists():
+        d = pd.read_csv(dropoff_path)
+        drop_map = {
+            row["stage"]: float(row["drop_off_rate"])
+            for _, row in d.iterrows()
+            if "stage" in d.columns and "drop_off_rate" in d.columns
+        }
+        website_metrics.update(
+            {
+                "dropoff_primary_care_to_referral": round(
+                    drop_map.get("PCP -> Referral", 0.0), 4
+                ),
+                "dropoff_specialist_to_diagnosis": round(
+                    drop_map.get("Specialist -> Diagnosis", 0.0), 4
+                ),
+            }
+        )
+
+    if scenario_path.exists():
+        s = pd.read_csv(scenario_path)
+        if "extra_diagnoses_vs_baseline" in s.columns and len(s) > 0:
+            best = float(s["extra_diagnoses_vs_baseline"].max())
+            website_metrics["best_case_additional_diagnoses"] = round(best, 1)
+
+    if trend_path.exists():
+        t = pd.read_csv(trend_path)
+        if len(t) >= 2:
+            website_metrics["trend_rows"] = int(len(t))
+
+    website_metrics["top_recommendations"] = [
+        "Close the referral decision within 7 days of a primary care visit",
+        "Run a capacity-aware specialist scheduling queue",
+        "Close the specialist outcome within 14 days of the visit",
+    ]
+
+    (OUT_DIR / "website_metrics.json").write_text(
+        json.dumps(website_metrics, indent=2),
+        encoding="utf-8",
     )
 
     print(f"Wrote business-friendly outputs to {OUT_DIR}")

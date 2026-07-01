@@ -8,7 +8,7 @@ import pytest
 
 def test_stage_delay_export_matches_mart(project_root):
     mart = pd.read_csv(project_root / "data" / "marts" / "cleaned" / "mart_delay_scored_cleaned.csv")
-    exported = pd.read_csv(project_root / "outputs" / "analytics" / "stage delay contribution.csv").iloc[0]
+    exported = pd.read_csv(project_root / "outputs" / "analytics" / "stage_delay_contribution.csv").iloc[0]
 
     checks = {
         "symptom_to_pcp": "days_symptom_to_pcp_clean",
@@ -33,8 +33,8 @@ def test_chd_type_funnel_rates_are_valid(project_root):
         assert (values <= 100).all()
 
 
-def test_bi_patient_detail_has_plain_language_fields(project_root):
-    path = project_root / "outputs" / "bi_ready" / "patient_pathway_detail.csv"
+def test_excel_patient_detail_has_plain_language_fields(project_root):
+    path = project_root / "outputs" / "excel_data" / "patient_pathway_detail.csv"
     if not path.exists():
         pytest.skip("regenerate with scripts/build_core_analytics_outputs.py")
     df = pd.read_csv(path, nrows=5)

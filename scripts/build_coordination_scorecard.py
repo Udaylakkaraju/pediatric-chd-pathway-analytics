@@ -2,9 +2,9 @@
 Build the coordination scorecard: leakage plus wait time by pathway stage.
 
 Inputs:
-- outputs/analytics/funnel metrics.csv
-- outputs/analytics/stage dropoff.csv
-- outputs/analytics/stage delay contribution.csv
+- outputs/analytics/funnel_metrics.csv
+- outputs/analytics/stage_dropoff.csv
+- outputs/analytics/stage_delay_contribution.csv
 - data/marts/cleaned/mart_delay_scored_cleaned.csv
 
 Output:
@@ -42,9 +42,9 @@ STAGES = [
 
 def main() -> None:
     mart = pd.read_csv(MART_CLEANED)
-    funnel = pd.read_csv(ANALYTICS / "funnel metrics.csv").iloc[0].to_dict()
-    dropoff = pd.read_csv(ANALYTICS / "stage dropoff.csv").set_index("stage")["drop_off_rate"].to_dict()
-    delay_avg = pd.read_csv(ANALYTICS / "stage delay contribution.csv").iloc[0].to_dict()
+    funnel = pd.read_csv(ANALYTICS / "funnel_metrics.csv").iloc[0].to_dict()
+    dropoff = pd.read_csv(ANALYTICS / "stage_dropoff.csv").set_index("stage")["drop_off_rate"].to_dict()
+    delay_avg = pd.read_csv(ANALYTICS / "stage_delay_contribution.csv").iloc[0].to_dict()
 
     rows = []
     for stage_order, (label, entry_key, next_key, delay_key, interval_col) in enumerate(STAGES, start=1):

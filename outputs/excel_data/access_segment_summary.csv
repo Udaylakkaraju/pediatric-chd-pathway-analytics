@@ -1,0 +1,11 @@
+segment_type,segment,patients,referral_rate,specialist_completion_rate,diagnosis_rate,median_specialist_wait_days
+Payer,medicaid,6216,0.569,0.3515,0.2481,31.0
+Payer,other,963,0.5846,0.3894,0.2793,26.0
+Payer,private,6499,0.589,0.4251,0.2927,25.0
+Payer,uninsured,1322,0.4939,0.2526,0.1778,33.0
+Provider capacity,high_capacity,4762,0.564,0.4196,0.294,23.0
+Provider capacity,low_capacity,3476,0.582,0.2989,0.2089,38.0
+Provider capacity,standard_capacity,6762,0.5726,0.3875,0.2694,28.0
+Social vulnerability,Low SVI,5009,0.6035,0.437,0.3116,26.0
+Social vulnerability,Middle SVI,4994,0.5717,0.3736,0.2549,29.0
+Social vulnerability,High SVI,4997,0.5409,0.3206,0.2229,29.0

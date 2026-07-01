@@ -4,3 +4,16 @@ __pycache__/
 .venv/
 venv/
 .env
+
+# Reproducible generated data. Run scripts/regenerate_realistic_data.py.
+data/chd_analytics.db
+data/raw/*.csv
+data/staging/*.csv
+
+# Local spreadsheet lock and temporary files.
+~$*.xlsx
+*.tmp
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db

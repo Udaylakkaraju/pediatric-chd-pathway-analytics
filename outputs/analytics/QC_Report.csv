@@ -1,41 +1,41 @@
 category,check_name,metric_value,detail
-mart,mart_row_count,4969.0,data\marts\cleaned\mart_delay_scored_cleaned.csv
+mart,mart_row_count,15000.0,data/marts/cleaned/mart_delay_scored_cleaned.csv
 mart,duplicate_patient_id_rows,0.0,Extra rows beyond first occurrence for same patient_id
 null_rate,patient_id,0.0,percent_null
 null_rate,zip_code,0.0,percent_null
 null_rate,svi_index,0.0,percent_null
 null_rate,insurance_type,0.0,percent_null
 null_rate,chd_type,0.0,percent_null
+null_rate,clinic_region,0.0,percent_null
+null_rate,distance_to_specialist_miles,0.0,percent_null
 null_rate,symptom_onset_date,0.0,percent_null
-null_rate,first_pcp_date,12.8,percent_null
-null_rate,referral_date,50.98,percent_null
-null_rate,specialist_date,61.98,percent_null
-null_rate,diagnosis_date,79.03,percent_null
-null_rate,intervention_date,79.03,percent_null
-null_rate,days_symptom_to_pcp_clean,12.8,percent_null
-null_rate,days_pcp_to_referral_clean,50.98,percent_null
-null_rate,days_referral_to_specialist_clean,61.98,percent_null
-null_rate,days_specialist_to_diagnosis_clean,79.03,percent_null
-null_rate,days_diagnosis_to_intervention_clean,79.03,percent_null
-null_rate,delay_severity_score_clean,0.0,percent_null
+null_rate,first_pcp_date,11.49,percent_null
+null_rate,referral_date,42.79,percent_null
+null_rate,specialist_date,62.29,percent_null
+null_rate,diagnosis_date,73.68,percent_null
+null_rate,intervention_date,86.43,percent_null
 null_rate,chd_severity,0.0,percent_null
 null_rate,referral_priority,0.0,percent_null
-null_rate,clinic_region,0.0,percent_null
 null_rate,provider_capacity_tier,0.0,percent_null
-null_rate,distance_to_specialist_miles,0.0,percent_null
 null_rate,authorization_status,0.0,percent_null
 null_rate,specialist_appointment_status,0.0,percent_null
+null_rate,days_symptom_to_pcp_clean,11.49,percent_null
+null_rate,days_pcp_to_referral_clean,42.79,percent_null
+null_rate,days_referral_to_specialist_clean,62.29,percent_null
+null_rate,days_specialist_to_diagnosis_clean,73.68,percent_null
+null_rate,days_diagnosis_to_intervention_clean,86.43,percent_null
+null_rate,delay_severity_score_clean,0.0,percent_null
 date_sequence,symptom_after_pcp,0.0,symptom_onset_date > first_pcp_date when both present
 date_sequence,pcp_after_referral,0.0,first_pcp_date > referral_date when both present
 date_sequence,referral_after_specialist,0.0,referral_date > specialist_date when both present
 date_sequence,specialist_after_diagnosis,0.0,specialist_date > diagnosis_date when both present
 date_sequence,diagnosis_after_intervention,0.0,diagnosis_date > intervention_date when both present
-date_future,future_symptom_onset_date,0.0,Date strictly after as-of 2026-06-26
-date_future,future_first_pcp_date,0.0,Date strictly after as-of 2026-06-26
-date_future,future_referral_date,0.0,Date strictly after as-of 2026-06-26
-date_future,future_specialist_date,0.0,Date strictly after as-of 2026-06-26
-date_future,future_diagnosis_date,0.0,Date strictly after as-of 2026-06-26
-date_future,future_intervention_date,0.0,Date strictly after as-of 2026-06-26
+date_future,future_symptom_onset_date,0.0,Date strictly after as-of 2026-07-01
+date_future,future_first_pcp_date,0.0,Date strictly after as-of 2026-07-01
+date_future,future_referral_date,0.0,Date strictly after as-of 2026-07-01
+date_future,future_specialist_date,0.0,Date strictly after as-of 2026-07-01
+date_future,future_diagnosis_date,0.0,Date strictly after as-of 2026-07-01
+date_future,future_intervention_date,0.0,Date strictly after as-of 2026-07-01
 date_early,before_1995_symptom_onset_date,0.0,Date before 1995-01-01
 date_early,before_1995_first_pcp_date,0.0,Date before 1995-01-01
 date_early,before_1995_referral_date,0.0,Date before 1995-01-01
@@ -53,8 +53,16 @@ interval,outlier_gt_730d_days_specialist_to_diagnosis_clean,0.0,Interval > 730 d
 interval,negative_days_diagnosis_to_intervention_clean,0.0,Values < 0
 interval,outlier_gt_730d_days_diagnosis_to_intervention_clean,0.0,Interval > 730 days (data quality flag)
 delay_score,outlier_delay_score_gt_2500,0.0,Investigate long-tail delay engineering / documentation
-raw_table,patients_csv_rows,60000.0,patients(Main Table).csv
-raw_table,encounters_rows,127779.0,encounters.csv
-raw_table,referrals_rows,26722.0,referrals.csv
-raw_table,observations_rows,382981.0,observations.csv
-alignment,mart_vs_funnel_symptom_cohort,0.0,mart_rows(4969) - funnel_symptom(4969)
+raw_table,patients_csv_rows,100000.0,patients(Main Table).csv
+raw_chronology,patients_first_contact_before_birth,0.0,Must be zero
+source_consistency,raw_chd_vs_mart_patient_mismatch,0.0,Patient IDs must match exactly
+source_consistency,raw_chd_vs_mart_insurance_mismatch,0.0,Mart payer must come from raw patients
+source_consistency,raw_chd_vs_mart_chd_type_mismatch,0.0,Mart CHD type must come from raw patients
+raw_table,encounters_rows,240000.0,encounters.csv
+raw_table,referrals_rows,50000.0,referrals.csv
+raw_table,observations_rows,720000.0,observations.csv
+raw_chronology,encounters_before_birth,0.0,Must be zero
+raw_chronology,referrals_before_birth,0.0,Must be zero
+raw_chronology,conditions_before_birth,0.0,Must be zero
+raw_chronology,procedures_before_birth,0.0,Must be zero
+alignment,mart_vs_funnel_symptom_cohort,0.0,mart_rows(15000) - funnel_symptom(15000)

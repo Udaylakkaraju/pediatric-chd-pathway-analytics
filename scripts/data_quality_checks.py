@@ -175,6 +175,46 @@ def main() -> None:
                 "detail": str(PATIENTS.name),
             }
         )
+        dob = pd.to_datetime(pat["dob"], errors="coerce")
+        first_contact = pd.to_datetime(pat["first_contact_date"], errors="coerce")
+        rows.append(
+            {
+                "category": "raw_chronology",
+                "check_name": "patients_first_contact_before_birth",
+                "metric_value": int((first_contact < dob).sum()),
+                "detail": "Must be zero",
+            }
+        )
+        raw_chd = pat.loc[pat["has_chd"].eq(1), ["patient_id", "insurance_type", "chd_type"]]
+        aligned = mart[["patient_id", "insurance_type", "chd_type"]].merge(
+            raw_chd,
+            on="patient_id",
+            how="outer",
+            suffixes=("_mart", "_raw"),
+            indicator=True,
+        )
+        rows.extend(
+            [
+                {
+                    "category": "source_consistency",
+                    "check_name": "raw_chd_vs_mart_patient_mismatch",
+                    "metric_value": int(aligned["_merge"].ne("both").sum()),
+                    "detail": "Patient IDs must match exactly",
+                },
+                {
+                    "category": "source_consistency",
+                    "check_name": "raw_chd_vs_mart_insurance_mismatch",
+                    "metric_value": int(aligned["insurance_type_mart"].ne(aligned["insurance_type_raw"]).sum()),
+                    "detail": "Mart payer must come from raw patients",
+                },
+                {
+                    "category": "source_consistency",
+                    "check_name": "raw_chd_vs_mart_chd_type_mismatch",
+                    "metric_value": int(aligned["chd_type_mart"].ne(aligned["chd_type_raw"]).sum()),
+                    "detail": "Mart CHD type must come from raw patients",
+                },
+            ]
+        )
     except Exception as e:
         rows.append(
             {
@@ -210,8 +250,28 @@ def main() -> None:
                 }
             )
 
+    if "pat" in locals():
+        dob_by_patient = pd.Series(dob.to_numpy(), index=pat["patient_id"])
+        for label, path, date_col in [
+            ("encounters", TABLES / "encounters.csv", "encounter_datetime"),
+            ("referrals", TABLES / "referrals.csv", "referral_datetime"),
+            ("conditions", TABLES / "conditions.csv", "condition_start"),
+            ("procedures", TABLES / "procedures.csv", "procedure_datetime"),
+        ]:
+            events = pd.read_csv(path, usecols=["patient_id", date_col])
+            event_dates = pd.to_datetime(events[date_col], errors="coerce")
+            event_dob = dob_by_patient.reindex(events["patient_id"]).reset_index(drop=True)
+            rows.append(
+                {
+                    "category": "raw_chronology",
+                    "check_name": f"{label}_before_birth",
+                    "metric_value": int((event_dates.reset_index(drop=True) < event_dob).sum()),
+                    "detail": "Must be zero",
+                }
+            )
+
     # Funnel alignment (optional)
-    funnel_path = ANALYTICS / "funnel metrics.csv"
+    funnel_path = ANALYTICS / "funnel_metrics.csv"
     if funnel_path.exists():
         f = pd.read_csv(funnel_path).iloc[0]
         f_sym = int(f["symptom"])

@@ -28,4 +28,5 @@ def test_exported_csv_baseline_row(project_root):
     with path.open(newline="", encoding="utf-8") as fh:
         rows = list(csv.DictReader(fh))
     base = next(r for r in rows if "baseline" in r["scenario"].lower())
-    assert float(base["modeled_diagnoses"]) == pytest.approx(1042.0, abs=1.0)
+    funnel = load_funnel_metrics(project_root)
+    assert float(base["modeled_diagnoses"]) == pytest.approx(funnel["diagnosis"], abs=1.0)
